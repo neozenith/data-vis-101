@@ -10,6 +10,11 @@ One of the other reasons I am putting this together is that I am working through
 [Interactive Data Visualization for the Web: An Introduction to Designing with D3](https://www.amazon.com.au/Interactive-Data-Visualization-Web-Introduction-ebook/dp/B074JKZ9Z3)
 and I like learning by example.
 
+## Dataset
+
+The data set used is the log of odometer readings and dates from everytime I fuelled
+up my Nissan Tiida '09 for the entirety of 2017./
+
 ## Visual Encoding
 
 <img src="images/VisualEncoding.png" />
