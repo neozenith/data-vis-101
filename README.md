@@ -12,7 +12,7 @@ and I like learning by example.
 
 ## Visual Encoding
 
-<img src="VisualEncoding.png" />
+<img src="raw/master/images/VisualEncoding.png" />
 
 ## Resources
  | Book Cover | Title | Published |
