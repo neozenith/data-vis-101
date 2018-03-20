@@ -16,5 +16,5 @@ and I like learning by example.
 
 ## Resources
 
- * <a href="https://www.amazon.com.au/Interactive-Data-Visualization-Web-Introduction-ebook/dp/B074JKZ9Z3" alt="Interactive Data Visualization for the Web: An Introduction to Designing with D3 2nd Edition, Aug 2017"><img src="https://images-fe.ssl-images-amazon.com/images/I/51HP18fPYML.jpg" height="20em" /></a>
- * <a href="https://www.amazon.com.au/Data-Visualisation-Handbook-Driven-Design-ebook/dp/B01G2C5VCG" alt="Data Visualisation: A Handbook for Data Driven Design 1st Edition"><img src="https://images-fe.ssl-images-amazon.com/images/I/51ogBxoSoZL.jpg" height="20em" />Data Visualisation: A Handbook for Data Driven Design 1st Edition</a>
+ * <a href="https://www.amazon.com.au/Interactive-Data-Visualization-Web-Introduction-ebook/dp/B074JKZ9Z3" alt="Interactive Data Visualization for the Web: An Introduction to Designing with D3 2nd Edition, Aug 2017"><img src="https://images-fe.ssl-images-amazon.com/images/I/51HP18fPYML.jpg" height="150px" />Interactive Data Visualization for the Web: An Introduction to Designing with D3 2nd Edition, Aug 2017</a>
+ * <a href="https://www.amazon.com.au/Data-Visualisation-Handbook-Driven-Design-ebook/dp/B01G2C5VCG" alt="Data Visualisation: A Handbook for Data Driven Design 1st Edition"><img src="https://images-fe.ssl-images-amazon.com/images/I/51ogBxoSoZL.jpg" height="150px" />Data Visualisation: A Handbook for Data Driven Design 1st Edition</a>
