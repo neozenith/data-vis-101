@@ -14,6 +14,14 @@ and I like learning by example.
 
 <img src="images/VisualEncoding.png" />
 
+This slide was lifted from a key note at Tableau Conference circa 2015.
+
+This image shows the ten most effective ways of visually encoding information as
+shown from a research study that flashed up images to candidates. These were
+the encodings that were the most effective for the human eye to notice.
+
+_Citation Needed_ 
+
 ## Resources
  | Book Cover | Title | Published |
  | --- | --- | --- |
