@@ -27,6 +27,17 @@ the encodings that were the most effective for the human eye to notice.
 
 _Citation Needed_ 
 
+## Scalable Vector Graphics (SVG)
+
+SVGs are largely the basis for drawing anything on the web and especially when
+it is a data driven drawing.
+
+I like the below linked cheat sheet as a reference.
+
+[SVG Cheatsheet](http://www.cheat-sheets.org/own/svg/index.xhtml)
+
+
+
 ## Resources
  | Book Cover | Title | Published |
  | --- | --- | --- |
