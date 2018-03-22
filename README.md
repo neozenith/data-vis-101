@@ -65,11 +65,15 @@ visualise that relationship.
 And we know what they say a picture is worth...
 
 ## Resources
- | Book Cover | Title | Published |
- | --- | --- | --- |
- | <a href="https://www.amazon.com.au/Interactive-Data-Visualization-Web-Introduction-ebook/dp/B074JKZ9Z3" alt="Interactive Data Visualization for the Web: An Introduction to Designing with D3 2nd Edition, Aug 2017"><img src="https://images-fe.ssl-images-amazon.com/images/I/51HP18fPYML.jpg" height="150px" /></a> | Interactive Data Visualization for the Web: An Introduction to Designing with D3 2nd Edition | Aug 2017 |
-  | <a href="https://www.amazon.com.au/Data-Visualisation-Handbook-Driven-Design-ebook/dp/B01G2C5VCG" alt="Data Visualisation: A Handbook for Data Driven Design 1st Edition"><img src="https://images-fe.ssl-images-amazon.com/images/I/51ogBxoSoZL.jpg" height="150px" /></a> | Data Visualisation: A Handbook for Data Driven Design 1st Edition | Jun 2016 |
 
+### Books
+
+| Book Cover | Title | Published |
+| --- | --- | --- |
+| <a href="https://www.amazon.com.au/Interactive-Data-Visualization-Web-Introduction-ebook/dp/B074JKZ9Z3" alt="Interactive Data Visualization for the Web: An Introduction to Designing with D3 2nd Edition, Aug 2017"><img src="https://images-fe.ssl-images-amazon.com/images/I/51HP18fPYML.jpg" height="150px" /></a> | Interactive Data Visualization for the Web: An Introduction to Designing with D3 2nd Edition | Aug 2017 |
+| <a href="https://www.amazon.com.au/Data-Visualisation-Handbook-Driven-Design-ebook/dp/B01G2C5VCG" alt="Data Visualisation: A Handbook for Data Driven Design 1st Edition"><img src="https://images-fe.ssl-images-amazon.com/images/I/51ogBxoSoZL.jpg" height="150px" /></a> | Data Visualisation: A Handbook for Data Driven Design 1st Edition | Jun 2016 |
+
+### Online
 
 | Title | Link |
 | --- | --- |
