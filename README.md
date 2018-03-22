@@ -36,7 +36,33 @@ I like the below linked cheat sheet as a reference.
 
 [SVG Cheatsheet](http://www.cheat-sheets.org/own/svg/index.xhtml)
 
+## Mappings and 1000 words
 
+Your data is often abstract and lacking in physical properties.
+
+Yet you are trying to visualise it in a very physical way by drawing it.
+
+Essentially a data visualisation is a _mapping_ between your dataset's _Domain_
+and the _Range_ of pixels you need to draw to.
+
+You are mapping properties of your data to any of the visual encoding properties:
+
+ - Length
+ - Width
+ - Orientation
+ - Size
+ - Shape
+ - Enclosure
+ - 2D position
+ - Grouping
+ - Hue
+ - Intensity
+
+Why? Because humans are much better at interpreting visual relationships than
+reading text, parsing the grammar of the language and then trying to internally 
+visualise that relationship.
+
+And we know what they say a picture is worth...
 
 ## Resources
  | Book Cover | Title | Published |
