@@ -25,8 +25,8 @@ npm install --save-dev webpack webpack-cli nodemon
 # Tools for a basic web server
 npm install express compression
 
-# d3 v4.x
-npm install d3@~4
+# d3 v5.x
+npm install d3
 
 ./node_modules/.bin/webpack-cli init
 
