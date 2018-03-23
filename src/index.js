@@ -1,14 +1,12 @@
 'use strict';
 
-console.log('plot.js');
+console.log('index.js');
+const d3 = require('d3');
 
 const margin = { top: 20, right: 30, bottom: 50, left: 40 },
 	width = 960 - margin.left - margin.right,
 	height = 500 - margin.top - margin.bottom;
 
-// Define a linear scale for output geometry
-
-// append the svg object to the body of the page
 const svg = d3
 	.select('#chart')
 	.append('svg')
@@ -21,8 +19,3 @@ d3.csv('data/fuel.csv', function(error, data) {
 	if (error) console.error(error);
 	console.log(data);
 });
-
-function type(d) {
-	d.value = +d.value; // coerce to number
-	return d;
-}

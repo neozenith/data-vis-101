@@ -4,7 +4,10 @@
   "description": "Data Visualisation",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "npm run serve& npm run build",
+    "serve": "nodemon server.js",
+    "build:dev": "webpack -w --mode development",
+    "build:prod": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,14 +27,22 @@
   },
   "homepage": "https://github.com/neozenith/data-vis-101#readme",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.9",
     "eslint": "^4.19.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "nodemon": "^1.17.2",
     "prettier": "^1.11.1",
+    "style-loader": "^0.19.1",
+    "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.2.0",
     "webpack-cli": "^2.0.13"
   },
   "dependencies": {
     "compression": "^1.7.2",
+    "d3": "^4.13.0",
     "express": "^4.16.3"
   }
 }

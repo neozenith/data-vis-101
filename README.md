@@ -10,11 +10,39 @@ One of the other reasons I am putting this together is that I am working through
 [Interactive Data Visualization for the Web: An Introduction to Designing with D3](https://www.amazon.com.au/Interactive-Data-Visualization-Web-Introduction-ebook/dp/B074JKZ9Z3)
 and I like learning by example.
 
+## From scratch
+
+```
+npm init
+
+# TODO: Set these up properly
+npm install --save-dev eslint prettier
+
+# Tools to run a basic nodejs webserver
+# Tools to build front end static assets
+npm install --save-dev webpack webpack-cli nodemon
+
+# Tools for a basic web server
+npm install express compression
+
+# d3 v4.x
+npm install d3@~4
+
+./node_modules/.bin/webpack-cli init
+
+```
+
 ## Getting Started
 
 ```
 npm install
-npm start
+
+# Run webpack build task which monitors for changes
+npm run build
+
+# Run Express Server which monitors changes to dist/
+npm run serve
+
 
 # Open in a browser http://localhost:3000/
 ```
