@@ -10,28 +10,6 @@ One of the other reasons I am putting this together is that I am working through
 [Interactive Data Visualization for the Web: An Introduction to Designing with D3](https://www.amazon.com.au/Interactive-Data-Visualization-Web-Introduction-ebook/dp/B074JKZ9Z3)
 and I like learning by example.
 
-## From scratch
-
-```
-npm init
-
-# TODO: Set these up properly
-npm install --save-dev eslint prettier
-
-# Tools to run a basic nodejs webserver
-# Tools to build front end static assets
-npm install --save-dev webpack webpack-cli nodemon
-
-# Tools for a basic web server
-npm install express compression
-
-# d3 v5.x
-npm install d3
-
-./node_modules/.bin/webpack-cli init
-
-```
-
 ## Getting Started
 
 ```
@@ -100,6 +78,29 @@ reading text, parsing the grammar of the language and then trying to internally
 visualise that relationship.
 
 And we know what they say a picture is worth...
+
+## From scratch
+
+```
+npm init
+
+# TODO: Set these up properly
+npm install --save-dev eslint prettier
+
+# Tools to run a basic nodejs webserver
+# Tools to build front end static assets
+npm install --save-dev webpack webpack-cli nodemon
+
+# Tools for a basic web server
+npm install express compression
+
+# d3 v5.x
+npm install d3
+
+./node_modules/.bin/webpack-cli init
+
+```
+
 
 ## Resources
 
