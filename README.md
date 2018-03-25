@@ -15,8 +15,8 @@ and I like learning by example.
 ```
 npm install
 
-# Run webpack build task which monitors for changes
-npm run build
+# In one terminal run webpack build task which monitors for changes
+npm run build:dev
 
 # Run Express Server which monitors changes to dist/
 npm run serve
