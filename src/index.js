@@ -51,6 +51,10 @@ d3
 				case '':
 					row[k] = parseFloat(data[k]);
 					break;
+				case 'Cost ($)':
+					// Strip out dollar sign and potential thousand separators
+					row[k] = Number(data[k].replace(/[$,]/g, ''));
+					break;
 				case 'Date':
 					row[k] = new Date(data[k]).getTime();
 					break;
