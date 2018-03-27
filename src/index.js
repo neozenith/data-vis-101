@@ -23,8 +23,7 @@ const yScale = d3.scaleLinear().range([chartArea.height + chartArea.y, chartArea
 const svg = d3
 	.select('#chart')
 	.append('svg')
-	.attr('width', width)
-	.attr('height', height);
+	.attr('viewBox', '0 0 ' + width + ' ' + height);
 const svgChartArea = svg
 	.append('g')
 	.attr('id', 'chartArea')
@@ -63,7 +62,7 @@ d3
 		return row;
 	})
 	.then(function(data) {
-		const keys = ['Date', 'Litres'];
+		const keys = ['Date', 'Cost ($)', 'Litres', 'Distance'];
 		console.log('postParse');
 		console.log(data);
 
@@ -87,7 +86,9 @@ d3
 		console.log(svg);
 		svgChartArea
 			.selectAll('circle')
-			.data(data)
+			.data(data, function(d) {
+				return d[keys[0]];
+			})
 			.enter()
 			.append('circle')
 			.attr('r', 3)
