@@ -17,33 +17,26 @@ const chartArea = {
 // Define a linear scale for output geometry
 const xScale = d3.scaleLinear().range([chartArea.x, chartArea.width + chartArea.x]);
 
+// Y-Range starts lower down screen then progresses up towards zero for larger domain values
 const yScale = d3.scaleLinear().range([chartArea.height + chartArea.y, chartArea.y]);
 
 const svg = d3
 	.select('#chart')
 	.append('svg')
 	.attr('width', width)
-	.attr('height', height)
+	.attr('height', height);
+const svgChartArea = svg
 	.append('g')
 	.attr('id', 'chartArea')
 	.attr('transform', 'translate(' + chartArea.x + ',' + chartArea.y + ')');
-const svgChartArea = svg.select('#chartArea');
-// .select('circle')
-// .data(data)
-// .enter()
-// .append('circle')
-// .attr('r', 3),
-// .attr('cx', xScale(x))
-// .attr('cy', yScale(y));
 
 d3
 	.csv('data/fuel.csv', function(data) {
 		const row = {};
 
-		console.log(data.keys);
 		for (const k in data) {
-			console.log(k, data[k]);
 			switch (k) {
+				// FLOATS
 				case 'Litres':
 				case 'Odometer':
 				case 'Days between refuel':
@@ -51,13 +44,16 @@ d3
 				case '':
 					row[k] = parseFloat(data[k]);
 					break;
+				// CURRENCY
 				case 'Cost ($)':
 					// Strip out dollar sign and potential thousand separators
 					row[k] = Number(data[k].replace(/[$,]/g, ''));
 					break;
+				// DATES
 				case 'Date':
 					row[k] = new Date(data[k]).getTime();
 					break;
+				// STRING - default
 				default:
 					row[k] = data[k];
 					break;
@@ -67,24 +63,45 @@ d3
 		return row;
 	})
 	.then(function(data) {
+		const keys = ['Date', 'Litres'];
 		console.log('postParse');
 		console.log(data);
 
 		xScale.domain([
 			d3.min(data, d => {
-				return d.Date;
+				return d[keys[0]];
 			}),
 			d3.max(data, d => {
-				return d.Date;
+				return d[keys[0]];
 			})
 		]);
 
 		yScale.domain([
 			d3.min(data, d => {
-				return d.Litres;
+				return d[keys[1]];
 			}),
 			d3.max(data, d => {
-				return d.Litres;
+				return d[keys[1]];
 			})
 		]);
+		console.log(svg);
+		svgChartArea
+			.selectAll('circle')
+			.data(data)
+			.enter()
+			.append('circle')
+			.attr('r', 3)
+			.attr('fill', '#df8787')
+			.attr('cx', function(d) {
+				return xScale(d[keys[0]]);
+			})
+			.attr('cy', function(d) {
+				return yScale(d[keys[1]]);
+			})
+			.attr('data-x', function(d) {
+				return d[keys[0]];
+			})
+			.attr('data-y', function(d) {
+				return d[keys[1]];
+			});
 	});
