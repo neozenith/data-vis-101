@@ -15,10 +15,12 @@ const chartArea = {
 };
 
 // Define a linear scale for output geometry
-const xScale = d3.scaleLinear().range([chartArea.x, chartArea.width + chartArea.x]);
+const scales = [];
+scales.push(d3.scaleLinear().range([chartArea.x, chartArea.width + chartArea.x]));
 
 // Y-Range starts lower down screen then progresses up towards zero for larger domain values
-const yScale = d3.scaleLinear().range([chartArea.height + chartArea.y, chartArea.y]);
+scales.push(d3.scaleLinear().range([chartArea.height + chartArea.y, chartArea.y]));
+scales.push(d3.scaleLinear().range([chartArea.height + chartArea.y, chartArea.y]));
 
 const svg = d3
 	.select('#chart')
@@ -66,43 +68,55 @@ d3
 		console.log('postParse');
 		console.log(data);
 
-		xScale.domain([
-			d3.min(data, d => {
-				return d[keys[0]];
-			}),
-			d3.max(data, d => {
-				return d[keys[0]];
-			})
-		]);
+		for (let i = 0; i < 3; i++) {
+			scales[i].domain([
+				d3.min(data, d => {
+					return d[keys[i]];
+				}),
+				d3.max(data, d => {
+					return d[keys[i]];
+				})
+			]);
+		}
 
-		yScale.domain([
-			d3.min(data, d => {
-				return d[keys[1]];
-			}),
-			d3.max(data, d => {
-				return d[keys[1]];
-			})
-		]);
-		console.log(svg);
 		svgChartArea
 			.selectAll('circle')
-			.data(data, function(d) {
-				return d[keys[0]];
-			})
+			.data(data)
 			.enter()
 			.append('circle')
 			.attr('r', 3)
 			.attr('fill', '#df8787')
 			.attr('cx', function(d) {
-				return xScale(d[keys[0]]);
+				return scales[0](d[keys[0]]);
 			})
 			.attr('cy', function(d) {
-				return yScale(d[keys[1]]);
+				return scales[1](d[keys[1]]);
 			})
 			.attr('data-x', function(d) {
 				return d[keys[0]];
 			})
 			.attr('data-y', function(d) {
 				return d[keys[1]];
+			});
+
+		svgChartArea
+			.selectAll('rect')
+			.data(data)
+			.enter()
+			.append('rect')
+			.attr('width', 3)
+			.attr('height', 3)
+			.attr('fill', '#8787df')
+			.attr('x', function(d) {
+				return scales[0](d[keys[0]]);
+			})
+			.attr('y', function(d) {
+				return scales[2](d[keys[2]]);
+			})
+			.attr('data-x', function(d) {
+				return d[keys[0]];
+			})
+			.attr('data-y', function(d) {
+				return d[keys[2]];
 			});
 	});
