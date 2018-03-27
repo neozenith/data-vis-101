@@ -104,14 +104,14 @@ d3
 			.data(data)
 			.enter()
 			.append('rect')
-			.attr('width', 3)
-			.attr('height', 3)
+			.attr('width', 6)
+			.attr('height', 6)
 			.attr('fill', '#8787df')
 			.attr('x', function(d) {
-				return scales[0](d[keys[0]]);
+				return scales[0](d[keys[0]]) - 3;
 			})
 			.attr('y', function(d) {
-				return scales[2](d[keys[2]]);
+				return scales[2](d[keys[2]]) - 3;
 			})
 			.attr('data-x', function(d) {
 				return d[keys[0]];
