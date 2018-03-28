@@ -1,9 +1,8 @@
 'use strict';
 
-console.log('index.js');
 const d3 = require('d3');
 
-const margin = { top: 20, right: 30, bottom: 50, left: 40 },
+const margin = { top: 50, right: 50, bottom: 50, left: 50 },
 	width = 960,
 	height = 500;
 
@@ -14,7 +13,7 @@ const chartArea = {
 	height: height - margin.top - margin.bottom
 };
 
-function parseDataset(data) {
+function parseRow(data) {
 	const row = {};
 
 	for (const k in data) {
@@ -59,8 +58,13 @@ function renderGraph(data) {
 				return d[keys[i]];
 			})
 		]);
+
+		// Update SVG element with latest axes object since referenced scales changed
+		svgAxes[i].call(axes[i]);
 	}
 
+	// TODO: refactor multiple series
+	// Series 1
 	svgChartArea
 		.selectAll('circle')
 		.data(data)
@@ -81,6 +85,7 @@ function renderGraph(data) {
 			return d[keys[1]];
 		});
 
+	// Series 2
 	svgChartArea
 		.selectAll('rect')
 		.data(data)
@@ -102,21 +107,59 @@ function renderGraph(data) {
 			return d[keys[2]];
 		});
 }
+
+// --------------- SCALES ---------------
 // Define a linear scale for output geometry
 const scales = [];
-scales.push(d3.scaleLinear().range([chartArea.x, chartArea.width + chartArea.x]));
-
+// Output pixel range of the chartArea <g> grouping. The <g> will be translated by the margin offset
+const xRange = [0, chartArea.width];
 // Y-Range starts lower down screen then progresses up towards zero for larger domain values
-scales.push(d3.scaleLinear().range([chartArea.height + chartArea.y, chartArea.y]));
-scales.push(d3.scaleLinear().range([chartArea.height + chartArea.y, chartArea.y]));
+const yRange = [chartArea.height, 0];
+scales.push(d3.scaleLinear().range(xRange));
 
+scales.push(d3.scaleLinear().range(yRange));
+scales.push(d3.scaleLinear().range(yRange));
+
+// --------------- CHART  ---------------
 const svg = d3
 	.select('#chart')
 	.append('svg')
 	.attr('viewBox', '0 0 ' + width + ' ' + height);
+
 const svgChartArea = svg
 	.append('g')
 	.attr('id', 'chartArea')
 	.attr('transform', 'translate(' + chartArea.x + ',' + chartArea.y + ')');
 
-d3.csv('data/fuel.csv', parseDataset).then(renderGraph);
+// Axes constructor objects
+const axes = [];
+axes.push(d3.axisBottom(scales[0]));
+axes.push(d3.axisLeft(scales[1]));
+axes.push(d3.axisRight(scales[2]));
+
+// --------------- AXES  ---------------
+// SVG Selection for Axes
+// TODO: Format axes with titles, dates, currency
+const svgAxes = [];
+svgAxes.push(
+	svg
+		.append('g')
+		.call(axes[0])
+		.attr('transform', `translate(${chartArea.x}, ${chartArea.height + chartArea.y})`)
+);
+svgAxes.push(
+	svg
+		.append('g')
+		.call(axes[1])
+		.attr('transform', `translate(${chartArea.x}, ${chartArea.y})`)
+);
+svgAxes.push(
+	svg
+		.append('g')
+		.call(axes[2])
+		.attr('transform', `translate(${chartArea.width + chartArea.x}, ${chartArea.y})`)
+);
+
+// --------------- DATA  ---------------
+// Load data, parse it, render it
+d3.csv('data/fuel.csv', parseRow).then(renderGraph);
