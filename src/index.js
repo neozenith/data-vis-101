@@ -1,6 +1,25 @@
 'use strict';
 
-const d3 = require('d3');
+// d3: 517.34 KB (99.2%)
+// <self>: 3.99 KB (0.765%)
+// build:prod:: 245kb
+// const d3 = require('d3');
+//
+// d3-scale: 115.82 KB (73.7%)
+// d3-selection: 28.17 KB (17.9%)
+// d3-axis: 5.21 KB (3.32%)
+// d3-dsv: 4.02 KB (2.56%)
+// TOTAL: 153.22kb
+// <self>: 3.82 KB (2.43%)
+//
+// build:prod:: 64.4kb
+const d3 = Object.assign(
+	{},
+	require('d3-selection'),
+	require('d3-scale'),
+	require('d3-axis'),
+	require('d3-dsv')
+);
 
 const margin = { top: 50, right: 50, bottom: 50, left: 50 },
 	width = 960,
