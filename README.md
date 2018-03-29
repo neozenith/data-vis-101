@@ -30,6 +30,7 @@ npm run serve
 The data set used is the log of odometer readings and dates from everytime I fuelled
 up my Nissan Tiida '09 for the entirety of 2017.
 
+
 ## Visual Encoding
 
 <img src="images/VisualEncoding.png" />
@@ -40,7 +41,39 @@ This image shows the ten most effective ways of visually encoding information as
 shown from a research study that flashed up images to candidates. These were
 the encodings that were the most effective for the human eye to notice.
 
-_Citation Needed_ 
+I don't have a citation other than this blog post which also summarises visual
+encodings.
+
+<a href="https://www.targetprocess.com/articles/visual-encoding/">
+<img src="images/retinal_data_flat.png" />
+</a>
+
+
+## Mental Bandwidth
+
+[Thinking Fast and Slow](https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman-ebook/dp/B005MJFA2W)
+is a book by nobel prize winning experimental psychologist Daniel Kahneman that explains
+the concept of mental bandwidth.
+
+He devised an experiment, where people were shown a sequence of four digits. They
+had to then on a 60bpm metronome count read out each digit and then wait two beats
+and then add 1 (or 3) to each digit on each subsequent beat.
+
+This task demonstrated that around 3-5 pieces of information is the most an average 
+person can consume at any given time.
+
+This is important when designing data visualisations to keep the number of pieces
+of information to 3-5 before the user interacts, signalling they are ready for more 
+information with hover, click or the multitude of touch gestures.
+
+He also goes on to describe the ways in which _psychopathic charm_ are used to
+mentally hijack you by using, repeated, empathetic phrases with lots of long words.
+It is difficult for you to juggle all those words and distinguish truth.
+
+Similarly, visualisation bypasses the need to interpret words and grammar to 
+extract the relationships. Sometimes visualisations are more appropriate as they 
+avoid the extra mental effort spoken or written communication requires to digest. 
+
 
 ## Scalable Vector Graphics (SVG)
 
@@ -110,6 +143,7 @@ npm install d3
 | --- | --- | --- |
 | <a href="https://www.amazon.com.au/Interactive-Data-Visualization-Web-Introduction-ebook/dp/B074JKZ9Z3" alt="Interactive Data Visualization for the Web: An Introduction to Designing with D3 2nd Edition, Aug 2017"><img src="https://images-fe.ssl-images-amazon.com/images/I/51HP18fPYML.jpg" height="150px" /></a> | Interactive Data Visualization for the Web: An Introduction to Designing with D3 2nd Edition | Aug 2017 |
 | <a href="https://www.amazon.com.au/Data-Visualisation-Handbook-Driven-Design-ebook/dp/B01G2C5VCG" alt="Data Visualisation: A Handbook for Data Driven Design 1st Edition"><img src="https://images-fe.ssl-images-amazon.com/images/I/51ogBxoSoZL.jpg" height="150px" /></a> | Data Visualisation: A Handbook for Data Driven Design 1st Edition | Jun 2016 |
+| <a href="https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman-ebook/dp/B005MJFA2W" alt="Thinking, Fast and Slow - Daniel Kahneman"><img src="https://images-na.ssl-images-amazon.com/images/I/41Gl2kqMlCL._SX322_BO1,204,203,200_.jpg" height="150px" /></a> | Thinking, Fast and Slow - Daniel Kahneman | Nov 2011|
 
 ### Online
 

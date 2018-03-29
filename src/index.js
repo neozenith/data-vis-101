@@ -32,6 +32,7 @@ const chartArea = {
 	height: height - margin.top - margin.bottom
 };
 
+// TODO: Refactor this
 function parseRow(data) {
 	const row = {};
 
@@ -181,4 +182,5 @@ svgAxes.push(
 
 // --------------- DATA  ---------------
 // Load data, parse it, render it
+// TODO: make this use D3.v5 async await
 d3.csv('data/fuel.csv', parseRow).then(renderGraph);
