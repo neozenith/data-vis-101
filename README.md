@@ -45,7 +45,7 @@ I don't have a citation other than this blog post which also summarises visual
 encodings.
 
 <a href="https://www.targetprocess.com/articles/visual-encoding/">
-<img src="images/retinal_data_flat.png" />
+<img src="images/retinal_data_flat.jpg" />
 </a>
 
 
