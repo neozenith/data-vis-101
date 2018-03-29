@@ -5,20 +5,26 @@
 // build:prod:: 245kb
 // const d3 = require('d3');
 //
-// d3-scale: 115.82 KB (73.7%)
-// d3-selection: 28.17 KB (17.9%)
-// d3-axis: 5.21 KB (3.32%)
-// d3-dsv: 4.02 KB (2.56%)
-// TOTAL: 153.22kb
+//
+// d3-scale: 101.02 KB (63.2%)
+// d3-selection: 28.17 KB (17.6%)
+// d3-array: 14.8 KB (9.25%)
+// d3-axis: 5.21 KB (3.26%)
+// d3-dsv: 4.02 KB (2.51%)
+// d3-fetch: 2.55 KB (1.59%)
+// <self>: 4.19 KB (2.62%)
+// TOTAL: 170.57kb
 // <self>: 3.82 KB (2.43%)
 //
-// build:prod:: 64.4kb
+// build:prod:: 71kb
 const d3 = Object.assign(
 	{},
 	require('d3-selection'),
 	require('d3-scale'),
 	require('d3-axis'),
-	require('d3-dsv')
+	require('d3-dsv'),
+	require('d3-array'),
+	require('d3-fetch')
 );
 
 const margin = { top: 50, right: 50, bottom: 50, left: 50 },
@@ -183,4 +189,5 @@ svgAxes.push(
 // --------------- DATA  ---------------
 // Load data, parse it, render it
 // TODO: make this use D3.v5 async await
+//
 d3.csv('data/fuel.csv', parseRow).then(renderGraph);

@@ -18,8 +18,8 @@ npm install
 # In one terminal run webpack build task which monitors for changes
 npm run build:dev
 
-# Run Express Server which monitors changes to dist/
-npm run serve
+# Run HTTP Server which serves dist/
+npm run serve:dev
 
 
 # Open in a browser http://localhost:3000/
@@ -125,7 +125,7 @@ npm install --save-dev eslint prettier
 npm install --save-dev webpack webpack-cli nodemon
 
 # Tools for a basic web server
-npm install express compression
+npm install http-server
 
 # d3 v5.x
 npm install d3

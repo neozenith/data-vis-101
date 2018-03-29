@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run serve& npm run build",
     "serve": "nodemon server.js",
-    "build:dev": "webpack -w --mode development",
+    "serve:dev": "http-server ./dist/ -p 3000 -o -U --gzip -a localhost",
+    "build:dev": "webpack --watch --mode development",
     "build:prod": "webpack --mode production",
     "deps-size": "webpack -p --json | webpack-bundle-size-analyzer",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -34,6 +35,7 @@
     "css-loader": "^0.28.9",
     "eslint": "^4.19.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "http-server": "^0.11.1",
     "nodemon": "^1.17.2",
     "prettier": "^1.11.1",
     "style-loader": "^0.19.1",
