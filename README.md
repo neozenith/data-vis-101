@@ -45,9 +45,99 @@ I don't have a citation other than [this blog post by targetprocess](https://www
 encodings.
 
 <a href="https://www.targetprocess.com/articles/visual-encoding/">
-<img src="images/retinal_data_flat.jpg" />
+<img src="images/retinal_data_flat.jpg" alt="grid marking visual encoding propretires" />
+</a>
+<a href="http://www.workwithcolor.com/blue-color-hue-range-01.htm">
+<img src="images/cona-hue-ranges-map-02.png" alt="Distinct ranges on a hue colour wheel">
 </a>
 
+<table>
+	<tr>
+		<td>
+			<div style="bgcolor: hsl(0,100%,100%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,100%,75%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,100%,50%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,100%,25%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,100%,0%)"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div style="bgcolor: hsl(0,75%,100%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,75%,75%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,75%,50%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,75%,25%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,75%,0%)"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div style="bgcolor: hsl(0,50%,100%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,50%,75%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,50%,50%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,50%,25%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,50%,0%)"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div style="bgcolor: hsl(0,25%,100%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,25%,75%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,25%,50%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,25%,25%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,25%,0%)"></div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div style="bgcolor: hsl(0,0%,100%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,0%,75%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,0%,50%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,0%,25%)"></div>
+		</td>
+		<td>
+			<div style="bgcolor: hsl(0,0%,0%)"></div>
+		</td>
+	</tr>
+</table>
 
 ## Mental Bandwidth
 
