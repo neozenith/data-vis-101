@@ -41,7 +41,7 @@ This image shows the ten most effective ways of visually encoding information as
 shown from a research study that flashed up images to candidates. These were
 the encodings that were the most effective for the human eye to notice.
 
-I don't have a citation other than this blog post which also summarises visual
+I don't have a citation other than [this blog post by targetprocess](https://www.targetprocess.com/articles/visual-encoding/) which also summarises visual
 encodings.
 
 <a href="https://www.targetprocess.com/articles/visual-encoding/">
