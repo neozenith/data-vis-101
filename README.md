@@ -54,87 +54,87 @@ encodings.
 <table>
 	<tr>
 		<td>
-			<div style="bgcolor: hsl(0,100%,100%)">nbsp;</div>
+			<div style="background-color: hsl(0,100%,100%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,100%,75%)">nbsp;</div>
+			<div style="background-color: hsl(0,100%,75%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,100%,50%)">nbsp;</div>
+			<div style="background-color: hsl(0,100%,50%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,100%,25%)">nbsp;</div>
+			<div style="background-color: hsl(0,100%,25%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,100%,0%)">nbsp;</div>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<div style="bgcolor: hsl(0,75%,100%)">nbsp;</div>
-		</td>
-		<td>
-			<div style="bgcolor: hsl(0,75%,75%)">nbsp;</div>
-		</td>
-		<td>
-			<div style="bgcolor: hsl(0,75%,50%)">nbsp;</div>
-		</td>
-		<td>
-			<div style="bgcolor: hsl(0,75%,25%)">nbsp;</div>
-		</td>
-		<td>
-			<div style="bgcolor: hsl(0,75%,0%)">nbsp;</div>
+			<div style="background-color: hsl(0,100%,0%)">nbsp;</div>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<div style="bgcolor: hsl(0,50%,100%)">nbsp;</div>
+			<div style="background-color: hsl(0,75%,100%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,50%,75%)">nbsp;</div>
+			<div style="background-color: hsl(0,75%,75%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,50%,50%)">nbsp;</div>
+			<div style="background-color: hsl(0,75%,50%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,50%,25%)">nbsp;</div>
+			<div style="background-color: hsl(0,75%,25%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,50%,0%)">nbsp;</div>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<div style="bgcolor: hsl(0,25%,100%)">nbsp;</div>
-		</td>
-		<td>
-			<div style="bgcolor: hsl(0,25%,75%)">nbsp;</div>
-		</td>
-		<td>
-			<div style="bgcolor: hsl(0,25%,50%)">nbsp;</div>
-		</td>
-		<td>
-			<div style="bgcolor: hsl(0,25%,25%)">nbsp;</div>
-		</td>
-		<td>
-			<div style="bgcolor: hsl(0,25%,0%)">nbsp;</div>
+			<div style="background-color: hsl(0,75%,0%)">nbsp;</div>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<div style="bgcolor: hsl(0,0%,100%)">nbsp;</div>
+			<div style="background-color: hsl(0,50%,100%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,0%,75%)">nbsp;</div>
+			<div style="background-color: hsl(0,50%,75%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,0%,50%)">nbsp;</div>
+			<div style="background-color: hsl(0,50%,50%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,0%,25%)">nbsp;</div>
+			<div style="background-color: hsl(0,50%,25%)">nbsp;</div>
 		</td>
 		<td>
-			<div style="bgcolor: hsl(0,0%,0%)">nbsp;</div>
+			<div style="background-color: hsl(0,50%,0%)">nbsp;</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div style="background-color: hsl(0,25%,100%)">nbsp;</div>
+		</td>
+		<td>
+			<div style="background-color: hsl(0,25%,75%)">nbsp;</div>
+		</td>
+		<td>
+			<div style="background-color: hsl(0,25%,50%)">nbsp;</div>
+		</td>
+		<td>
+			<div style="background-color: hsl(0,25%,25%)">nbsp;</div>
+		</td>
+		<td>
+			<div style="background-color: hsl(0,25%,0%)">nbsp;</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div style="background-color: hsl(0,0%,100%)">nbsp;</div>
+		</td>
+		<td>
+			<div style="background-color: hsl(0,0%,75%)">nbsp;</div>
+		</td>
+		<td>
+			<div style="background-color: hsl(0,0%,50%)">nbsp;</div>
+		</td>
+		<td>
+			<div style="background-color: hsl(0,0%,25%)">nbsp;</div>
+		</td>
+		<td>
+			<div style="background-color: hsl(0,0%,0%)">nbsp;</div>
 		</td>
 	</tr>
 </table>
