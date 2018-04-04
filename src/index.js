@@ -22,6 +22,8 @@ const d3 = Object.assign(
 	require('d3-selection'),
 	require('d3-scale'),
 	require('d3-axis'),
+	require('d3-format'),
+	require('d3-time-format'),
 	require('d3-dsv'),
 	require('d3-array'),
 	require('d3-fetch')
@@ -141,7 +143,7 @@ const scales = [];
 const xRange = [0, chartArea.width];
 // Y-Range starts lower down screen then progresses up towards zero for larger domain values
 const yRange = [chartArea.height, 0];
-scales.push(d3.scaleLinear().range(xRange));
+scales.push(d3.scaleTime().range(xRange));
 
 scales.push(d3.scaleLinear().range(yRange));
 scales.push(d3.scaleLinear().range(yRange));
@@ -158,14 +160,19 @@ const svgChartArea = svg
 	.attr('transform', 'translate(' + chartArea.x + ',' + chartArea.y + ')');
 
 // Axes constructor objects
+// TODO: Label axes
 const axes = [];
-axes.push(d3.axisBottom(scales[0]));
-axes.push(d3.axisLeft(scales[1]));
-axes.push(d3.axisRight(scales[2]));
+axes.push(d3.axisBottom(scales[0]).tickFormat(d3.timeFormat("%b'%y")));
+axes.push(d3.axisLeft(scales[1]).tickFormat(d3.format('$0.2f')));
+axes.push(
+	d3
+		.axisRight(scales[2])
+		.tickFormat(d3.format('0.1f'))
+		.tickPadding(margin.right * 0.5)
+);
 
 // --------------- AXES  ---------------
 // SVG Selection for Axes
-// TODO: Format axes with titles, dates, currency
 const svgAxes = [];
 svgAxes.push(
 	svg
