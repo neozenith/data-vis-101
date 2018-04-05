@@ -83,6 +83,10 @@ svgAxes.push(
 // --------------- DATA  ---------------
 // Load data, parse it, render it
 async function createChart(csvFile, rowParser, graphBuilder) {
-	const dataset = await d3.csv(csvFile, parseRow);
+	const dataset = await d3.csv(csvFile, parseRow).catch(err => console.log(err));
 	graphBuilder(dataset);
 }
+
+module.exports = {
+	createChart
+};
