@@ -62,13 +62,12 @@ const svgChartArea = svg
 	.attr('id', 'chartArea')
 	.attr('transform', 'translate(' + chartArea.x + ',' + chartArea.y + ')');
 
+// --------------- AXES  ---------------
 // Axes constructor objects
-// TODO: Label axes
 const axes = [];
 axes.push(d3.axisBottom(scales[0]).tickFormat(d3.timeFormat("%b'%y")));
 axes.push(d3.axisLeft(scales[1]).tickFormat(d3.format('0.1f')));
 
-// --------------- AXES  ---------------
 // SVG Selection for Axes
 const svgAxes = [];
 svgAxes.push(
@@ -97,6 +96,13 @@ svgAxes.push(
  * @return {void} Return nothing
  */
 async function createChart(csvFile, rowParser, graphBuilder) {
+	// v4
+	// d3.csv("file.csv", function(error, data) {
+	//	if (error) throw error;
+	//		console.log(data);
+	// });
+
+	// v5
 	const dataset = await d3.csv(csvFile, parseRow).catch(err => console.log(err));
 	graphBuilder(dataset);
 }
@@ -149,9 +155,11 @@ function parseRow(data) {
  */
 function renderGraph(data) {
 	const keys = ['Date', 'Distance (K)', 'Litres', 'Cost ($)'];
-	console.log('postParse');
-	console.log(data);
 
+	// Once the data is loaded we can figure out the boundaries of
+	// the domain of the data coming in.
+	// Now we know the domain AND the range to draw onto we
+	// can draw the axes of the chart
 	for (let i = 0; i < scales.length; i++) {
 		scales[i].domain([
 			d3.min(data, d => {
@@ -166,7 +174,7 @@ function renderGraph(data) {
 		svgAxes[i].call(axes[i]);
 	}
 
-	// Series 1
+	// Plot the scatter plot points
 	svgChartArea
 		.selectAll('circle')
 		.data(data)
