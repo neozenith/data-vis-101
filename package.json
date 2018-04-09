@@ -10,7 +10,9 @@
     "build:dev": "webpack --watch --mode development",
     "build:prod": "webpack --mode production",
     "deps-size": "webpack -p --json | webpack-bundle-size-analyzer",
-    "test": "echo \"Error: no test specified\" && exit 1"
+		"pretest":"npm run test:lint:fix",
+    "test": "echo \"Error: no test specified\" && exit 0",
+		"test:lint:fix":"./node_modules/.bin/eslint --fix lib/*.js src/*.js test/*.js"
   },
   "repository": {
     "type": "git",
@@ -28,12 +30,16 @@
     "url": "https://github.com/neozenith/data-vis-101/issues"
   },
   "homepage": "https://github.com/neozenith/data-vis-101#readme",
+	"eslintConfig":{"extends":"@neozenith"},
   "devDependencies": {
+    "@neozenith/eslint-config": "^2.0.2",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "http-server": "^0.11.1",
     "nodemon": "^1.17.3",
