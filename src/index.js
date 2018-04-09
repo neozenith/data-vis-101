@@ -66,7 +66,7 @@ const svgChartArea = svg
 // TODO: Label axes
 const axes = [];
 axes.push(d3.axisBottom(scales[0]).tickFormat(d3.timeFormat("%b'%y")));
-axes.push(d3.axisLeft(scales[1]).tickFormat(d3.format('$0.2f')));
+axes.push(d3.axisLeft(scales[1]).tickFormat(d3.format('0.1f')));
 
 // --------------- AXES  ---------------
 // SVG Selection for Axes
@@ -148,7 +148,7 @@ function parseRow(data) {
  * @return {void}
  */
 function renderGraph(data) {
-	const keys = ['Date', 'Cost ($)', 'Litres', 'Distance'];
+	const keys = ['Date', 'Distance (K)', 'Litres', 'Cost ($)'];
 	console.log('postParse');
 	console.log(data);
 
@@ -166,7 +166,6 @@ function renderGraph(data) {
 		svgAxes[i].call(axes[i]);
 	}
 
-	// TODO: refactor multiple series
 	// Series 1
 	svgChartArea
 		.selectAll('circle')
