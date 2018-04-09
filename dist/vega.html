@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Embedding Vega-Lite</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@3.2.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.3.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.2.0"></script>
+</head>
+<body>
+
+  <div id="vis"></div>
+
+  <script type="text/javascript">
+		var vgSpec = 
+			{
+					"$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
+					"description": "A simple bar chart with embedded data.",
+					"data": {"url":"data/fuel.csv"},
+					"width":800, height:600,
+					"mark": "point",
+					"encoding": {
+						"x": {"field": "Date", "type": "temporal", "timeunit":"monthyear"},
+						"y": {"field": "Litres", "type": "quantitative"}
+					}
+			}
+
+		vegaEmbed("#vis", vgSpec, {"renderer":"svg"});
+  </script>
+</body>
+</html>
