@@ -120,8 +120,7 @@ And we know what they say a picture is worth...
 ```
 npm init
 
-# TODO: Set these up properly
-npm install --save-dev eslint prettier
+npm install --save-dev eslint eslint-config-prettier eslint-plugin-prettier prettier
 
 # Tools to run a basic nodejs webserver
 # Tools to build front end static assets
@@ -134,6 +133,18 @@ npm install http-server
 npm install d3
 
 ./node_modules/.bin/webpack-cli init
+
+# Create remote app and add heroku remotes
+heroku create
+
+# Test locally
+heroku local web
+
+# provision a database
+heroku addons:create heroku-postgresql:hobby-dev
+
+# Push to Heroku remote to deploy
+git push heroku master
 
 ```
 
