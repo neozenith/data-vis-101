@@ -3,7 +3,9 @@
 // Module Imports
 const express = require('express'),
 	path = require('path'),
-	compression = require('compression');
+	compression = require('compression'),
+	bodyParser = require('body-parser'),
+	api = require('./api');
 
 // Config
 const pkg = require('./package.json');
@@ -14,11 +16,14 @@ const environment = process.env.NODE_ENV || 'DEVELOPMENT';
 const staticPath = process.env.STATIC_PATH || path.join(__dirname, 'dist');
 const app = express();
 app.use(compression());
+app.use(bodyParser.json());
 
 console.log(`${environment} v${pkg.version}`);
 
 // Static Assets
 app.use(express.static(staticPath));
+
+app.post('/api/arduino', api.arduino);
 
 /* eslint-disable no-unused-vars */
 // 404
