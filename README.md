@@ -25,10 +25,16 @@ npm run serve:dev
 # Open in a browser http://localhost:3000/
 ```
 
-## Dataset
+## Datasets
 
-The data set used is the log of odometer readings and dates from everytime I fuelled
+`fuel.csv` - The data set used is the log of odometer readings and dates from everytime I fuelled
 up my Nissan Tiida '09 for the entirety of 2017.
+
+`NewRun2018` - I competed in the 2018 10k Hill to Harbour and clocked an official 
+race time of 54:47 although strava logged it as [53:27](https://www.strava.com/activities/1508899475) since
+the course total was 10.2k. 
+I scraped all race results and scrubbed competitors names. 
+However I am RaceNo 983 and my colleagues were 815 and 1144.
 
 
 ## Visual Encoding
