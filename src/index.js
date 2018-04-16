@@ -3,7 +3,7 @@
 // d3: 517.34 KB (99.2%)
 // <self>: 3.99 KB (0.765%)
 // build:prod:: 245kb
-// const d3 = require('d3');
+const d3 = require('d3');
 //
 //
 // d3-scale: 101.02 KB (63.2%)
@@ -18,17 +18,17 @@
 //
 // build:prod:: 71kb
 
-const d3 = Object.assign(
-	{},
-	require('d3-selection'),
-	require('d3-scale'),
-	require('d3-axis'),
-	require('d3-format'),
-	require('d3-time-format'),
-	require('d3-dsv'),
-	require('d3-array'),
-	require('d3-fetch')
-);
+// const d3 = Object.assign(
+// {},
+// require('d3-selection'),
+// require('d3-scale'),
+// require('d3-axis'),
+// require('d3-format'),
+// require('d3-time-format'),
+// require('d3-dsv'),
+// require('d3-array'),
+// require('d3-fetch')
+// );
 
 const margin = { top: 50, right: 50, bottom: 50, left: 50 },
 	width = 960,
