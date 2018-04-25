@@ -24,7 +24,7 @@ console.log(`${environment} v${pkg.version}`);
 
 /*============================== STATIC ASSETS ============================== */
 
-if (false && environment === 'development') {
+if (environment === 'development') {
 	const webpack = require('webpack');
 	const webpackMiddleware = require('webpack-dev-middleware');
 	const webpackConfig = require('./webpack.config.js');
