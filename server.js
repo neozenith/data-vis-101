@@ -5,6 +5,7 @@ const express = require('express'),
 	path = require('path'),
 	compression = require('compression'),
 	bodyParser = require('body-parser'),
+	morgan = require('morgan'),
 	api = require('./api');
 
 // Config
@@ -15,6 +16,7 @@ const port = process.env.PORT || 3000;
 const environment = process.env.NODE_ENV || 'development';
 const staticPath = process.env.STATIC_PATH || path.join(__dirname, 'dist');
 const app = express();
+app.use(morgan('dev'));
 app.use(compression());
 app.use(bodyParser.json());
 
@@ -22,11 +24,12 @@ console.log(`${environment} v${pkg.version}`);
 
 /*============================== STATIC ASSETS ============================== */
 
-if (environment === 'development') {
+if (false && environment === 'development') {
 	const webpack = require('webpack');
 	const webpackMiddleware = require('webpack-dev-middleware');
 	const webpackConfig = require('./webpack.config.js');
 	webpackConfig.mode = environment;
+
 	app.use(
 		webpackMiddleware(webpack(webpackConfig), {
 			publicPath: '/',
