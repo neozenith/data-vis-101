@@ -24,7 +24,14 @@
     "column": ["Days between refuel","Cost ($)", "Litres", "Distance (K)"]
   },
   "spec": {
-    "data": {"url": "data/fuel.csv"},
+    "data": {"url": "data/fuel.csv",
+			"format": {
+				"type": "csv",
+				"parse": {
+					"Date": "date"
+				}
+			}
+		},
     "mark": "point",
     "selection": {
       "brush": {
@@ -45,6 +52,8 @@
     "encoding": {
       "x": {"field": {"repeat": "column"},"type": "quantitative"},
       "y": {"field": {"repeat": "row"},"type": "quantitative"},
+			"tooltip": {"field": "Date" ,"type":"temporal"},
+
       "color": {
         "condition": {
           "selection": "brush",
