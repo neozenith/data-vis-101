@@ -18,16 +18,44 @@
   <script type="text/javascript">
 		var vgSpec = 
 			{
-					"$schema": "https://vega.github.io/schema/vega-lite/v2.0.json",
-					"description": "A simple bar chart with embedded data.",
-					"data": {"url":"data/fuel.csv"},
-					"width":800, height:600,
-					"mark": "point",
-					"encoding": {
-						"x": {"field": "Date", "type": "temporal", "timeunit":"monthyear"},
-						"y": {"field": "Distance (K)", "type": "quantitative"}
-					}
-			}
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "repeat": {
+    "row": ["Distance (K)", "Litres", "Cost ($)"],
+    "column": ["Cost ($)", "Litres", "Distance (K)"]
+  },
+  "spec": {
+    "data": {"url": "data/fuel.csv"},
+    "mark": "point",
+    "selection": {
+      "brush": {
+        "type": "interval",
+        "resolve": "union",
+        "on": "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!",
+        "translate": "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!",
+        "zoom": "wheel![event.shiftKey]"
+      },
+      "grid": {
+        "type": "interval",
+        "resolve": "global",
+        "bind": "scales",
+        "translate": "[mousedown[!event.shiftKey], window:mouseup] > window:mousemove!",
+        "zoom": "wheel![!event.shiftKey]"
+      }
+    },
+    "encoding": {
+      "x": {"field": {"repeat": "column"},"type": "quantitative"},
+      "y": {"field": {"repeat": "row"},"type": "quantitative"},
+      "color": {
+        "condition": {
+          "selection": "brush",
+          "field": "Origin",
+          "type": "nominal"
+        },
+        "value": "grey"
+      }
+    }
+  }
+};
 
 		vegaEmbed("#vis", vgSpec, {"renderer":"svg"});
   </script>
