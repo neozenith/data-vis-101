@@ -15,7 +15,6 @@
     },
     "mark": "point",
     "selection": {
-      "pts": {"type": "single", "on":"mouseover", "nearest":true, "empty":"none"},
       "brush": {
         "type": "interval",
         "resolve": "union",
@@ -43,14 +42,6 @@
           "type": "temporal"
         },
         "value": "grey"
-      },
-      "size": {
-        "condition": {
-          "selection": "pts",
-          "field": "Date",
-          "type": "temporal"
-        },
-        "value": "50"
       }
     }
   }
