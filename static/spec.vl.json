@@ -1,0 +1,58 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "repeat": {
+    "row": ["Distance (K)", "Litres", "Cost ($)","Days between refuel"],
+    "column": ["Days between refuel","Cost ($)", "Litres", "Distance (K)"]
+  },
+  "spec": {
+    "data": {"url": "data/fuel.csv",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "Date": "date"
+        }
+      }
+    },
+    "mark": "point",
+    "selection": {
+      "pts": {"type": "single", "on":"mouseover", "nearest":true, "empty":"none"},
+      "brush": {
+        "type": "interval",
+        "resolve": "union",
+        "on": "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!",
+        "translate": "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!",
+        "zoom": "wheel![event.shiftKey]"
+      },
+      "grid": {
+        "type": "interval",
+        "resolve": "global",
+        "bind": "scales",
+        "translate": "[mousedown[!event.shiftKey], window:mouseup] > window:mousemove!",
+        "zoom": "wheel![!event.shiftKey]"
+      }
+    },
+    "encoding": {
+      "x": {"field": {"repeat": "column"},"type": "quantitative"},
+      "y": {"field": {"repeat": "row"},"type": "quantitative"},
+      "tooltip": {"field": "Date" ,"type":"temporal"},
+
+      "color": {
+        "condition": {
+          "selection": "brush",
+          "field": "Date",
+          "type": "temporal"
+        },
+        "value": "grey"
+      },
+      "size": {
+        "condition": {
+          "selection": "pts",
+          "field": "Date",
+          "type": "temporal"
+        },
+        "value": "50"
+      }
+    }
+  }
+}
+

@@ -16,57 +16,11 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@2.3.1"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.2.0"></script>
   <script type="text/javascript">
-		var vgSpec = 
-			{
-  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-  "repeat": {
-    "row": ["Distance (K)", "Litres", "Cost ($)","Days between refuel"],
-    "column": ["Days between refuel","Cost ($)", "Litres", "Distance (K)"]
-  },
-  "spec": {
-    "data": {"url": "data/fuel.csv",
-			"format": {
-				"type": "csv",
-				"parse": {
-					"Date": "date"
-				}
-			}
-		},
-    "mark": "point",
-    "selection": {
-      "brush": {
-        "type": "interval",
-        "resolve": "union",
-        "on": "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!",
-        "translate": "[mousedown[event.shiftKey], window:mouseup] > window:mousemove!",
-        "zoom": "wheel![event.shiftKey]"
-      },
-      "grid": {
-        "type": "interval",
-        "resolve": "global",
-        "bind": "scales",
-        "translate": "[mousedown[!event.shiftKey], window:mouseup] > window:mousemove!",
-        "zoom": "wheel![!event.shiftKey]"
-      }
-    },
-    "encoding": {
-      "x": {"field": {"repeat": "column"},"type": "quantitative"},
-      "y": {"field": {"repeat": "row"},"type": "quantitative"},
-			"tooltip": {"field": "Date" ,"type":"temporal"},
-
-      "color": {
-        "condition": {
-          "selection": "brush",
-          "field": "Date",
-          "type": "temporal"
-        },
-        "value": "grey"
-      }
-    }
-  }
-};
-
-		vegaEmbed("#vis", vgSpec, {"renderer":"svg"});
+    //TODO:
+    // https://vega.github.io/vega-lite/docs/selection.html
+    // https://vega.github.io/vega-lite/examples/interactive_multi_line_tooltip.html
+    var vgSpec = "spec.vl.json";
+		vegaEmbed("#vis", vgSpec, {"renderer":"svg"}).catch(console.warn);
   </script>
 </body>
 </html>
