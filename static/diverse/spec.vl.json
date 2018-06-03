@@ -1,11 +1,11 @@
-{
+i{
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
   
   "data": {
     "url": "diversification_data.csv",
     "format": {
       "type": "csv",
-      "Date":"date"
+      "Time":"date"
     }
   },
 
@@ -16,10 +16,10 @@
   
     {
       "encoding": {
-        "x": {"field": "Date", "type": "temporal"},
-        "y": {"field": "Value", "type": "quantitative"},
+        "x": {"field": "Time", "type": "temporal"},
+        "y": {"field": "Relative Growth (%)", "type": "quantitative"},
         "color": {
-          "field": "Series", 
+          "field": "Compare Options", 
           "type": "nominal",
           "scale": {"range": ["purple", "#ff0000", "teal"]}
         }
@@ -31,7 +31,6 @@
         },
         {
           "selection": {
-            "brush": {"type": "single"},
             "tooltip": {
               "type": "single",
               "nearest": true,
@@ -64,7 +63,7 @@
             "color": "gray"
           },
           "encoding": {
-            "x": {     "type": "temporal",    "field": "Date"   },
+            "x": {     "type": "temporal",    "field": "Time"   },
             "opacity": {
               "condition": {
                 "selection": "tooltip",
@@ -82,10 +81,10 @@
             "dy": -5
           },
           "encoding": {
-            "text": {  "type": "quantitative","field": "Value"  },
-            "color": { "type": "nominal",     "field": "Series" },
-            "x": {     "type": "temporal",    "field": "Date"   },
-            "y": {     "type": "quantitative","field": "Value"  },
+            "text": {  "type": "quantitative","field": "Relative Growth (%)"  },
+            "color": { "type": "nominal",     "field": "Compare Options" },
+            "x": {     "type": "temporal",    "field": "Time"   },
+            "y": {     "type": "quantitative","field": "Relative Growth (%)"  },
             "opacity": {
               "condition": {
                 "selection": "tooltip",
@@ -99,3 +98,4 @@
     }
   ]
 }
+
