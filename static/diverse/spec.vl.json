@@ -1,0 +1,101 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  
+  "data": {
+    "url": "diversification_data.csv",
+    "format": {
+      "type": "csv",
+      "Date":"date"
+    }
+  },
+
+  "width": 800,
+  "height": 400,
+  
+  "layer": [
+  
+    {
+      "encoding": {
+        "x": {"field": "Date", "type": "temporal"},
+        "y": {"field": "Value", "type": "quantitative"},
+        "color": {
+          "field": "Series", 
+          "type": "nominal",
+          "scale": {"range": ["purple", "#ff0000", "teal"]}
+        }
+      },
+      
+      "layer": [
+        {
+          "mark": "line"
+        },
+        {
+          "selection": {
+            "brush": {"type": "single"},
+            "tooltip": {
+              "type": "single",
+              "nearest": true,
+              "on": "mouseover",
+              "encodings": [
+                "x"
+              ],
+              "empty": "none"
+            }
+          },
+          "mark": "point",
+          "encoding": {
+            "opacity": {
+              "condition": {
+                "selection": "tooltip",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        }
+      ]
+    },
+    
+    {
+      "layer": [
+        {
+          "mark": {
+            "type": "rule",
+            "color": "gray"
+          },
+          "encoding": {
+            "x": {     "type": "temporal",    "field": "Date"   },
+            "opacity": {
+              "condition": {
+                "selection": "tooltip",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 5,
+            "dy": -5
+          },
+          "encoding": {
+            "text": {  "type": "quantitative","field": "Value"  },
+            "color": { "type": "nominal",     "field": "Series" },
+            "x": {     "type": "temporal",    "field": "Date"   },
+            "y": {     "type": "quantitative","field": "Value"  },
+            "opacity": {
+              "condition": {
+                "selection": "tooltip",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

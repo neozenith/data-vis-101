@@ -1,0 +1,40 @@
+Date,Series,Value
+2017-01-01,Traditional,100.00
+2017-02-01,Traditional,102.16
+2017-03-01,Traditional,103.97
+2017-04-01,Traditional,102.91
+2017-05-01,Traditional,102.85
+2017-06-01,Traditional,102.52
+2017-07-01,Traditional,103.82
+2017-08-01,Traditional,105.07
+2017-09-01,Traditional,103.67
+2017-10-01,Traditional,107.55
+2017-11-01,Traditional,109.63
+2017-12-01,Traditional,110.25
+2018-01-01,Traditional,112.29
+2017-01-01,Traditional with 5% BTC,100.00
+2017-02-01,Traditional with 5% BTC,102.20
+2017-03-01,Traditional with 5% BTC,105.15
+2017-04-01,Traditional with 5% BTC,103.42
+2017-05-01,Traditional with 5% BTC,105.15
+2017-06-01,Traditional with 5% BTC,110.00
+2017-07-01,Traditional with 5% BTC,111.35
+2017-08-01,Traditional with 5% BTC,114.04
+2017-09-01,Traditional with 5% BTC,124.01
+2017-10-01,Traditional with 5% BTC,125.13
+2017-11-01,Traditional with 5% BTC,139.39
+2017-12-01,Traditional with 5% BTC,161.83
+2018-01-01,Traditional with 5% BTC,175.17
+2017-01-01,Traditional with 5% Diversified,100.00
+2017-02-01,Traditional with 5% Diversified,102.59
+2017-03-01,Traditional with 5% Diversified,105.97
+2017-04-01,Traditional with 5% Diversified,111.76
+2017-05-01,Traditional with 5% Diversified,120.47
+2017-06-01,Traditional with 5% Diversified,162.71
+2017-07-01,Traditional with 5% Diversified,165.79
+2017-08-01,Traditional with 5% Diversified,156.15
+2017-09-01,Traditional with 5% Diversified,195.85
+2017-10-01,Traditional with 5% Diversified,176.01
+2017-11-01,Traditional with 5% Diversified,171.89
+2017-12-01,Traditional with 5% Diversified,232.18
+2018-01-01,Traditional with 5% Diversified,432.72
