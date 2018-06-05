@@ -19,8 +19,16 @@
     //TODO:
     // https://vega.github.io/vega-lite/docs/selection.html
     // https://vega.github.io/vega-lite/examples/interactive_multi_line_tooltip.html
+    
     var vgSpec = "spec.vl.json";
-		vegaEmbed("#vis", vgSpec, {"renderer":"svg"}).catch(console.warn);
+    var options = {
+      "renderer":"svg",
+      "actions":false
+    };
+    
+    vegaEmbed("#vis", vgSpec, options).then(function(result){
+      console.debug('success');
+    }).catch(console.warn);
   </script>
 </body>
 </html>
