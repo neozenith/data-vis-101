@@ -3,7 +3,6 @@
   "version": "1.0.1",
   "description": "Data Visualisation",
   "main": "server.js",
-
   "scripts": {
     "serve": "nodemon server.js",
     "serve:dev": "http-server ./dist/ -p 3000 -o -U --gzip -a localhost",
