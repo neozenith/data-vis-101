@@ -19,26 +19,26 @@
 // build:prod:: 71kb
 
 const d3 = Object.assign(
-	{},
-	require('d3-selection'),
-	require('d3-scale'),
-	require('d3-axis'),
-	require('d3-format'),
-	require('d3-time-format'),
-	require('d3-dsv'),
-	require('d3-array'),
-	require('d3-fetch')
+  {},
+  require('d3-selection'),
+  require('d3-scale'),
+  require('d3-axis'),
+  require('d3-format'),
+  require('d3-time-format'),
+  require('d3-dsv'),
+  require('d3-array'),
+  require('d3-fetch')
 );
 
 const margin = { top: 50, right: 50, bottom: 50, left: 50 },
-	width = 960,
-	height = 500;
+  width = 960,
+  height = 500;
 
 const chartArea = {
-	x: margin.left,
-	y: margin.top,
-	width: width - margin.left - margin.right,
-	height: height - margin.top - margin.bottom
+  x: margin.left,
+  y: margin.top,
+  width: width - margin.left - margin.right,
+  height: height - margin.top - margin.bottom
 };
 
 // --------------- SCALES ---------------
@@ -53,14 +53,14 @@ scales.push(d3.scaleLinear().range(yRange));
 
 // --------------- CHART  ---------------
 const svg = d3
-	.select('#chart')
-	.append('svg')
-	.attr('viewBox', '0 0 ' + width + ' ' + height);
+  .select('#chart')
+  .append('svg')
+  .attr('viewBox', '0 0 ' + width + ' ' + height);
 
 const svgChartArea = svg
-	.append('g')
-	.attr('id', 'chartArea')
-	.attr('transform', 'translate(' + chartArea.x + ',' + chartArea.y + ')');
+  .append('g')
+  .attr('id', 'chartArea')
+  .attr('transform', 'translate(' + chartArea.x + ',' + chartArea.y + ')');
 
 // --------------- AXES  ---------------
 // Axes constructor objects
@@ -71,16 +71,16 @@ axes.push(d3.axisLeft(scales[1]).tickFormat(d3.format('0.1f')));
 // SVG Selection for Axes
 const svgAxes = [];
 svgAxes.push(
-	svg
-		.append('g')
-		.call(axes[0])
-		.attr('transform', `translate(${chartArea.x}, ${chartArea.height + chartArea.y})`)
+  svg
+    .append('g')
+    .call(axes[0])
+    .attr('transform', `translate(${chartArea.x}, ${chartArea.height + chartArea.y})`)
 );
 svgAxes.push(
-	svg
-		.append('g')
-		.call(axes[1])
-		.attr('transform', `translate(${chartArea.x}, ${chartArea.y})`)
+  svg
+    .append('g')
+    .call(axes[1])
+    .attr('transform', `translate(${chartArea.x}, ${chartArea.y})`)
 );
 
 // --------------- DATA  ---------------
@@ -96,15 +96,15 @@ svgAxes.push(
  * @return {void} Return nothing
  */
 async function createChart(csvFile, rowParser, graphBuilder) {
-	// v4
-	// d3.csv("file.csv", function(error, data) {
-	//	if (error) throw error;
-	//		console.log(data);
-	// });
+  // v4
+  // d3.csv("file.csv", function(error, data) {
+  //	if (error) throw error;
+  //		console.log(data);
+  // });
 
-	// v5
-	const dataset = await d3.csv(csvFile, parseRow).catch(err => console.log(err));
-	graphBuilder(dataset);
+  // v5
+  const dataset = await d3.csv(csvFile, parseRow).catch(err => console.log(err));
+  graphBuilder(dataset);
 }
 
 /**
@@ -115,35 +115,35 @@ async function createChart(csvFile, rowParser, graphBuilder) {
  * @return {Object} fields rewritten with correctly coerced data types
  */
 function parseRow(data) {
-	const row = {};
+  const row = {};
 
-	for (const k in data) {
-		switch (k) {
-			// FLOATS
-			case 'Litres':
-			case 'Odometer':
-			case 'Days between refuel':
-			case 'Distance (K)':
-			case '':
-				row[k] = parseFloat(data[k]);
-				break;
-			// CURRENCY
-			case 'Cost ($)':
-				// Strip out dollar sign and potential thousand separators
-				row[k] = Number(data[k].replace(/[$,]/g, ''));
-				break;
-			// DATES
-			case 'Date':
-				row[k] = new Date(data[k]).getTime();
-				break;
-			// STRING - default
-			default:
-				row[k] = data[k];
-				break;
-		}
-	}
+  for (const k in data) {
+    switch (k) {
+      // FLOATS
+      case 'Litres':
+      case 'Odometer':
+      case 'Days between refuel':
+      case 'Distance (K)':
+      case '':
+        row[k] = parseFloat(data[k]);
+        break;
+      // CURRENCY
+      case 'Cost ($)':
+        // Strip out dollar sign and potential thousand separators
+        row[k] = Number(data[k].replace(/[$,]/g, ''));
+        break;
+      // DATES
+      case 'Date':
+        row[k] = new Date(data[k]).getTime();
+        break;
+      // STRING - default
+      default:
+        row[k] = data[k];
+        break;
+    }
+  }
 
-	return row;
+  return row;
 }
 
 /**
@@ -154,47 +154,47 @@ function parseRow(data) {
  * @return {void}
  */
 function renderGraph(data) {
-	const keys = ['Date', 'Distance (K)', 'Litres', 'Cost ($)'];
+  const keys = ['Date', 'Distance (K)', 'Litres', 'Cost ($)'];
 
-	// Once the data is loaded we can figure out the boundaries of
-	// the domain of the data coming in.
-	// Now we know the domain AND the range to draw onto we
-	// can draw the axes of the chart
-	for (let i = 0; i < scales.length; i++) {
-		scales[i].domain([
-			d3.min(data, d => {
-				return d[keys[i]];
-			}),
-			d3.max(data, d => {
-				return d[keys[i]];
-			})
-		]);
+  // Once the data is loaded we can figure out the boundaries of
+  // the domain of the data coming in.
+  // Now we know the domain AND the range to draw onto we
+  // can draw the axes of the chart
+  for (let i = 0; i < scales.length; i++) {
+    scales[i].domain([
+      d3.min(data, d => {
+        return d[keys[i]];
+      }),
+      d3.max(data, d => {
+        return d[keys[i]];
+      })
+    ]);
 
-		// Update SVG element with latest axes object since referenced scales changed
-		svgAxes[i].call(axes[i]);
-	}
+    // Update SVG element with latest axes object since referenced scales changed
+    svgAxes[i].call(axes[i]);
+  }
 
-	// Plot the scatter plot points
-	svgChartArea
-		.selectAll('circle')
-		.data(data)
-		.enter()
-		.append('circle')
-		.attr('r', 3)
-		.attr('stroke', '#8787df')
-		.attr('fill', 'none')
-		.attr('cx', function(d) {
-			return scales[0](d[keys[0]]);
-		})
-		.attr('cy', function(d) {
-			return scales[1](d[keys[1]]);
-		})
-		.attr('data-x', function(d) {
-			return d[keys[0]];
-		})
-		.attr('data-y', function(d) {
-			return d[keys[1]];
-		});
+  // Plot the scatter plot points
+  svgChartArea
+    .selectAll('circle')
+    .data(data)
+    .enter()
+    .append('circle')
+    .attr('r', 3)
+    .attr('stroke', '#8787df')
+    .attr('fill', 'none')
+    .attr('cx', function(d) {
+      return scales[0](d[keys[0]]);
+    })
+    .attr('cy', function(d) {
+      return scales[1](d[keys[1]]);
+    })
+    .attr('data-x', function(d) {
+      return d[keys[0]];
+    })
+    .attr('data-y', function(d) {
+      return d[keys[1]];
+    });
 }
 
 createChart('data/fuel.csv', parseRow, renderGraph);
