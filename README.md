@@ -39,7 +39,7 @@ However I am RaceNo 983 and my colleagues were 815 and 1144.
 
 ## Visual Encoding
 
-<img src="images/VisualEncoding.png" />
+<img src="docs/images/VisualEncoding.png" />
 
 This slide was lifted from a key note at Tableau Conference circa 2015.
 
@@ -51,10 +51,10 @@ I don't have a citation other than [this blog post by targetprocess](https://www
 encodings.
 
 <a href="https://www.targetprocess.com/articles/visual-encoding/">
-<img src="images/retinal_data_flat.jpg" alt="grid marking visual encoding propretires" />
+<img src="docs/images/retinal_data_flat.jpg" alt="grid marking visual encoding propretires" />
 </a>
 <a href="http://www.workwithcolor.com/blue-color-hue-range-01.htm">
-<img src="images/cona-hue-ranges-map-02.png" alt="Distinct ranges on a hue colour wheel">
+<img src="docs/images/cona-hue-ranges-map-02.png" alt="Distinct ranges on a hue colour wheel">
 </a>
 
 

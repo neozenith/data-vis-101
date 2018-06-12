@@ -8,12 +8,17 @@ COPY package-lock.json /usr/src/app/
 RUN npm install
 
 # COPY Source files and Webpack build
-COPY ./utils /usr/src/app/utils
+
+#COPY Frontend code
 COPY ./src /usr/src/app/src
 COPY ./static /usr/src/app/static
-COPY ./routes /usr/src/app/routes
-COPY *.js /usr/src/app/
 RUN npm run build:prod
+
+# COPY Serverside code
+COPY ./models /usr/src/app/models
+COPY ./routes /usr/src/app/routes
+COPY ./utils /usr/src/app/utils
+COPY *.js /usr/src/app/
 
 EXPOSE 3000
 

@@ -8,7 +8,10 @@ const express = require('express'),
   compression = require('compression'),
   bodyParser = require('body-parser'),
   cors = require('cors'),
-  morgan = require('morgan');
+  morgan = require('morgan'),
+  mongoose = require('mongoose');
+
+const mdb = require('./utils/database');
 
 // Config
 const pkg = require('./package.json');
@@ -106,6 +109,7 @@ function shutdownSystem(code) {
   }
 
   return Promise.all([
+    mongoose.disconnect(),
     new Promise(resolve => {
       if (httpServer) {
         logger.info('Express.js server closing');

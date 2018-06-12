@@ -5,25 +5,19 @@
   "main": "server.js",
   "scripts": {
     "start:prod": "nodemon server.js",
-    
     "build:dev": "webpack --watch --mode development",
     "build:prod": "webpack --mode production",
-    
     "deps-size": "webpack -p --json | webpack-bundle-size-analyzer",
-    
-    "pretest":"npm run test:lint:all && npm run docker:up",
+    "pretest": "npm run test:lint:all && npm run docker:up",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "posttest":"npm run docker:down",
-    
+    "posttest": "npm run docker:down",
     "test:lint:all": "./node_modules/.bin/eslint --ignore-path .gitignore .",
     "test:lint": "npm run test:lint:all -- --quiet",
     "test:lint:fix": "npm run test:lint:all -- --fix",
-    
     "start": "npm run docker:up",
-    "stop":"npm run docker:down",
-
+    "stop": "npm run docker:down",
     "docker:up": "docker-compose up --build",
-    "docker:down":"docker-compose down"
+    "docker:down": "docker-compose down"
   },
   "repository": {
     "type": "git",
@@ -55,9 +49,11 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "http-server": "^0.11.1",
+    "mocha": "^5.2.0",
     "nodemon": "^1.17.5",
     "prettier": "^1.13.4",
     "style-loader": "^0.19.1",
+    "supertest": "^3.1.0",
     "webpack": "^4.11.1",
     "webpack-bundle-size-analyzer": "^2.7.0",
     "webpack-cli": "^2.1.5",
@@ -69,7 +65,9 @@
     "d3": "^5.4.0",
     "express": "^4.16.3",
     "mongodb": "^3.0.10",
+    "mongoose": "^5.1.5",
     "morgan": "^1.9.0",
-    "throng": "^4.0.0"
+    "throng": "^4.0.0",
+    "validator": "^10.3.0"
   }
 }
