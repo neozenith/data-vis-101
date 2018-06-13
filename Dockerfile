@@ -1,24 +1,43 @@
-FROM node:10-alpine
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+########################################
+# BUILDER
+########################################
+FROM node:10-alpine AS build 
+MAINTAINER Josh Peak <neozenith.dev@gmail.com>
+
+ENV INSTALL_PATH /usr/src/app
+RUN mkdir -p $INSTALL_PATH
+WORKDIR $INSTALL_PATH
 
 # Install dependencies
-COPY package.json /usr/src/app/
-COPY package-lock.json /usr/src/app/
+COPY package.json .
+COPY package-lock.json .
 RUN npm install
 
 # COPY Source files and Webpack build
-
-#COPY Frontend code
-COPY ./src /usr/src/app/src
-COPY ./static /usr/src/app/static
+#COPY Frontend code and static assets and Webpack build
+COPY ./webpack.config.js .
+COPY ./src ./src
+COPY ./static ./static
 RUN npm run build:prod
 
-# COPY Serverside code
-COPY ./models /usr/src/app/models
-COPY ./routes /usr/src/app/routes
-COPY ./utils /usr/src/app/utils
-COPY *.js /usr/src/app/
+########################################
+# PRODUCTION
+########################################
+FROM node:10-alpine
+ENV INSTALL_PATH /usr/src/app
+RUN mkdir -p $INSTALL_PATH
+WORKDIR $INSTALL_PATH 
+
+COPY package.json .
+COPY package-lock.json .
+RUN npm install --only=production
+
+COPY --from=build $INSTALL_PATH/dist ./dist 
+# RUN ls -lah ./dist/
+# COPY rest of code
+# NOTE: .dockerignore file reduces the scope of what gets copied here
+COPY . . 
+# RUN ls -lah
 
 EXPOSE 3000
 

@@ -56,6 +56,7 @@ function startupSystem() {
       })
     );
   } else {
+    logger.log(staticPath);
     app.use(express.static(staticPath));
   }
 

@@ -15,5 +15,5 @@ module.exports = {
   module: {
     rules: []
   },
-  plugins: [new CopyWebpackPlugin([{ from: 'static' }])]
+  plugins: [new CopyWebpackPlugin([{ from: path.resolve(__dirname, 'static') }])]
 };
