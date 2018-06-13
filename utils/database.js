@@ -8,6 +8,8 @@ const options = {
   reconnectInterval: 100
 };
 //TODO: Make this actually retry until it works to be event driven
+//TODO: https://www.npmjs.com/package/node-docker-api
+// Use a docker API to drive starting up for tests.
 setTimeout(function() {
   logger.info('MongoDB startup...');
   mongoose
