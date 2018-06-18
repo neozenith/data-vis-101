@@ -7,7 +7,7 @@ const TIMEOUT = 1 * 60 * 1000; //ms
 before(async function() {
   this.timeout(TIMEOUT);
   console.log('BEFORE:');
-  await runProcess('docker-compose up -d');
+  await runProcess('docker-compose up --build -d');
   const containers = await queryDocker('/containers/json');
 
   //extract container information
@@ -16,13 +16,22 @@ before(async function() {
       id: container.Id,
       name: container.Names[0],
       image: container.Image,
-      ports: container.Ports[0],
+      ports: container.Ports,
       state: container.State,
       status: container.Status
     };
   });
 
   //TODO: Connectivity checks
+  // https://stackoverflow.com/a/37576787/622276
+  await Promise.all(
+    services.map(async service => {
+      return new Promise((resolve, reject) => {
+        // Integrate Async service check here
+        resolve();
+      });
+    })
+  );
   console.log(services);
 });
 
