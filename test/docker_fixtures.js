@@ -1,38 +1,34 @@
 'use strict';
 const http = require('http');
+const url = require('url');
 const { exec } = require('child_process');
 
 const TIMEOUT = 1 * 60 * 1000; //ms
+const PROJECT = 'datavsi101';
 
 before(async function() {
   this.timeout(TIMEOUT);
   console.log('BEFORE:');
   await runProcess('docker-compose up --build -d');
-  const containers = await queryDocker('/containers/json');
+  const containers = await queryDocker(`/containers/json?label="com.docker.compose.project=${PROJECT}"`);
 
-  //extract container information
-  const services = containers.map(container => {
-    return {
-      id: container.Id,
-      name: container.Names[0],
-      image: container.Image,
-      ports: container.Ports,
-      state: container.State,
-      status: container.Status
-    };
+  const serviceUrls = containers.map(container => {
+    return `http://localhost:${container.Ports[0].PublicPort}`;
   });
-
-  //TODO: Connectivity checks
+  // READY YET: Connectivity checks
   // https://stackoverflow.com/a/37576787/622276
   await Promise.all(
-    services.map(async service => {
-      return new Promise((resolve, reject) => {
-        // Integrate Async service check here
-        resolve();
+    serviceUrls.map(async serviceUrl => {
+      return new Promise(async (resolve, reject) => {
+        try {
+          await readyYet(serviceUrl);
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
       });
     })
   );
-  console.log(services);
 });
 
 after(async function() {
@@ -110,5 +106,47 @@ function queryDocker(path, options) {
     //Trigger compose request and call .end() to trigger.
     const clientRequest = http.request(_options, callback);
     clientRequest.end();
+  });
+}
+
+/**
+ * Takes a URI and tries pinging it for a given interval frequency or until timeout hit.
+ * If a success result is returned before timeout it will resolve.
+ *
+ * @param {string} uri -
+ * @param {integer} timeout - Amount of time in milliseconds to wait
+ * @param {integer} interval - The period between retries in milliseconds
+ *
+ * @return {Promise} - Empty response, just resolves on success or rejects on timeout.
+ */
+function readyYet(uri, timeout, interval) {
+  const _timeout = timeout || 5000; //ms
+  const _interval = interval || 1000; //ms
+  const _url = url.parse(uri);
+  console.log(_url.protocol);
+
+  let attempt = 0;
+
+  return new Promise((resolve, reject) => {
+    // Create interval checks
+    let interv = setInterval(() => {
+      attempt++;
+      console.log(`${attempt} checking ${uri}`);
+      //TODO: actually check url here
+      if (attempt > 2) {
+        clearInterval(interv);
+        interv = null;
+        resolve();
+      }
+    }, _interval);
+    // Create timeout to cap interval executions
+    setTimeout(() => {
+      if (interv) {
+        console.log(`end checking ${uri}`);
+        clearInterval(interv);
+        interv = null;
+        reject(new Error(`${uri} timed out after ${_timeout}ms`));
+      }
+    }, _timeout);
   });
 }
