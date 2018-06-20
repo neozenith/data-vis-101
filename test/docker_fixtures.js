@@ -1,39 +1,32 @@
 'use strict';
 const http = require('http');
 const url = require('url');
+const path = require('path');
 const { exec } = require('child_process');
 
 const TIMEOUT = 1 * 60 * 1000; //ms
-const PROJECT = 'datavsi101';
+const PROJECT = path.basename(process.cwd());
 
 before(async function() {
   this.timeout(TIMEOUT);
-  console.log('BEFORE:');
-  await runProcess('docker-compose up --build -d');
-  const containers = await queryDocker(`/containers/json?label="com.docker.compose.project=${PROJECT}"`);
 
-  const serviceUrls = containers.map(container => {
-    return `http://localhost:${container.Ports[0].PublicPort}`;
-  });
-  // READY YET: Connectivity checks
-  // https://stackoverflow.com/a/37576787/622276
+  await runProcess('docker-compose up --build -d');
+
+  const containers = await queryDocker(`/containers/json?label="com.docker.compose.project=${PROJECT}"`);
+  containers.forEach(container => console.log({ names: container.Names, ports: container.Ports }));
+
+  //TODO: Construct Service URLs from container information
+  const serviceUrls = ['http://localhost:3000', 'mongo://mongo:27017'];
+
   await Promise.all(
     serviceUrls.map(async serviceUrl => {
-      return new Promise(async (resolve, reject) => {
-        try {
-          await readyYet(serviceUrl);
-          resolve();
-        } catch (e) {
-          reject(e);
-        }
-      });
+      return readyYet(serviceUrl);
     })
   );
 });
 
 after(async function() {
   this.timeout(TIMEOUT);
-  console.log('AFTER:');
   await runProcess('docker-compose down');
 });
 
