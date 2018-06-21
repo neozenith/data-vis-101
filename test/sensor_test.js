@@ -1,11 +1,16 @@
 'use strict';
 const supertest = require('supertest');
-const TEST_HOST = process.env.TEST_HOST || 'http://localhost:3000';
-
-const api = supertest(TEST_HOST);
+let api = null;
 
 describe('Sensor', function() {
   this.timeout(0);
+
+  before('setup', function() {
+    const TEST_HOST = process.env.TEST_HOST || 'http://localhost:3000';
+    console.log({ TEST_HOST });
+    api = supertest(TEST_HOST);
+  });
+
   it('200 /sensor', function(done) {
     api
       .get('/api/v1/sensor')
