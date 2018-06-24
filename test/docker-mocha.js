@@ -3,8 +3,8 @@ const http = require('http');
 const url = require('url');
 const { exec } = require('child_process');
 
-// TODO: this should be http only and everything else should be learned
 const handlers = {
+  // Default handler
   'http:': function(uri) {
     // eslint-disable-next-line no-unused-vars
     return new Promise((resolve, reject) => {
@@ -20,31 +20,55 @@ const handlers = {
           resolve(false);
         });
     });
-  },
-
-  // eslint-disable-next-line no-unused-vars
-  'mongo:': function(uri) {
-    //TODO: check mongo and refactor
-    // eslint-disable-next-line no-unused-vars
-    return new Promise((resolve, reject) => {
-      resolve(true);
-    });
   }
 };
 
-class DockerFixture {
-  constructor() {
-    console.log('new instance');
-  }
+/**
+ * DockerMocha class is used to eventfully trigger a docker test fixture to
+ * startup, await ports, assist creating serviceURLs, await service URLs
+ * to accept valid commands.
+ */
+class DockerMocha {
+  /**
+   * Default constructor does nothing.
+   * @return {void}
+   */
+  constructor() {}
 
+  /**
+   * This is to be used in conjunction with `readyYet`. DockerMocha only knows
+   * how to handle `http:` by default. All other protocols will have to be `learn`t.
+   *
+   * ```
+   * const {DockerMocha} = require('./docker_fixture.js');
+   * const fixture = new DockerMocha();
+   * fixture.learn('mongo:', url => {
+   *    return new Promise((resolve, reject)=>{
+   *      resolve(true);
+   *    });
+   * });
+   * ```
+   *
+   * @param {string} protocol - URL protocol to associate this handler with.
+   *  Must include the ':' as in 'http:' is returned from:
+   *  ```
+   *  const url = require('url');
+   *  url.parse('http://localhost:8080').protocol
+   *  ```
+   * @param {function} readyHandler - Function that accepts a single string argument `url`
+   *  and returns a Promise that will return a boolean `true` is the service URL successfully
+   *  connected and accepted a basic ping command.
+   *
+   * @return {void}
+   */
   learn(protocol, readyHandler) {
     handlers[protocol] = readyHandler;
   }
   /**
    * Exceute a child process as a promise. eg
    * ```
-   * await DockerFixture.runProcess('docker-compose up --build -d');
-   * await DockerFixture.runProcess('docker-compose down');
+   * await DockerMocha.runProcess('docker-compose up --build -d');
+   * await DockerMocha.runProcess('docker-compose down');
    * ```
    *
    * @param {string} command - Command process to execute asynchronously
@@ -72,6 +96,18 @@ class DockerFixture {
       child_proc.stdout.on('data', data => console.log('>> ' + data.toString()));
       child_proc.stderr.on('data', data => console.error('>> ' + data.toString()));
     });
+  }
+
+  /**
+   * Shorthand to get containers for a docker compose project
+   *
+   * @param {string} project - The name of the docker compose project to filter on
+   *
+   * @return {Array[Objects]} Promise of Array of Objects decribing containers.
+   * @see queryDocker
+   */
+  getComposedContainers(project) {
+    return this.queryDocker(`/containers/json?label="com.docker.compose.project=${project}"`);
   }
 
   /**
@@ -157,7 +193,7 @@ class DockerFixture {
             resolve();
           }
         } else {
-          reject(new Error(`Service URL protocol unknown how to handle: ${_url.protocol}`));
+          reject(new Error(`Unknown Service URL protocol: '${_url.protocol}'`));
         }
       }, _interval);
 
@@ -174,5 +210,5 @@ class DockerFixture {
 }
 
 module.exports = {
-  DockerFixture
+  DockerMocha
 };
