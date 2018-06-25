@@ -5,11 +5,7 @@ const { DockerMocha } = require('./docker-mocha');
 const PROJECT = path.basename(process.cwd()); // Get current directory as project name
 
 const fixture = new DockerMocha();
-fixture.learn('mongo:', url => {
-  return new Promise((resolve, reject) => {
-    resolve(true);
-  });
-});
+fixture.learn('mongodb:', require('./docker-mocha-mongo').ping);
 
 const TIMEOUT = 1 * 60 * 1000; //ms
 before(async function() {
@@ -29,7 +25,7 @@ before(async function() {
         process.env.TEST_HOST = output;
         break;
       case '/mongo':
-        output = `mongo://localhost:${container.Ports[0].PublicPort}`;
+        output = `mongodb://localhost:${container.Ports[0].PublicPort}`;
         break;
     }
     return output;
@@ -46,5 +42,4 @@ before(async function() {
 after(async function() {
   this.timeout(TIMEOUT);
   await fixture.runProcess('docker-compose down');
-  await fixture.runProcess('docker container prune -f && docker image prune -f');
 });
