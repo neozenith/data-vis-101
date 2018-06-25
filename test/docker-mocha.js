@@ -155,6 +155,22 @@ class DockerMocha {
   }
 
   /**
+   * Take an array of ServiceUrls to map and run against `readyYet` and wrap
+   * in Promise.all()
+   *
+   * @param {Array} serviceUrls - Array of Strings to run through `readyYet`
+   *
+   * @return {Promise} Wraps all `readyYet` calls in a Promise.all()
+   */
+  allReadyYet(serviceUrls) {
+    return Promise.all(
+      serviceUrls.map(async serviceUrl => {
+        return this.readyYet(serviceUrl);
+      })
+    );
+  }
+
+  /**
    * Takes a URI and tries pinging it for a given interval frequency or until timeout hit.
    * If a success result is returned before timeout it will resolve.
    *

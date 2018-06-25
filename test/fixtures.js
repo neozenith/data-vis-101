@@ -32,11 +32,7 @@ before(async function() {
   });
 
   // STEP #3: readyYet checks for successful ping of service Urls
-  await Promise.all(
-    serviceUrls.map(async serviceUrl => {
-      return fixture.readyYet(serviceUrl);
-    })
-  );
+  await fixture.allReadyYet(serviceUrls);
 });
 
 after(async function() {
