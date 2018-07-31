@@ -1,0 +1,54 @@
+{
+	"defaultSeverity": "error",
+	"extends": ["tslint:recommended"],
+	"rules": {
+		"arrow-parens": false,
+		"class-name": true,
+		"comment-format": [true, "check-space"],
+		"indent": [true, "spaces", 2],
+		"one-line": [true, "check-open-brace", "check-whitespace"],
+		"no-var-keyword": true,
+    "no-console":false,
+		"variable-name": false,
+		"only-arrow-functions": false,
+		"one-variable-per-declaration": false,
+		"quotemark": [true, "single", "avoid-escape"],
+		"semicolon": [true, "always", "ignore-bound-class-methods"],
+		"trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
+		"whitespace": [
+			true,
+			"check-branch",
+			"check-decl",
+			"check-operator",
+			"check-module",
+			"check-separator",
+			"check-type"
+		],
+		"typedef-whitespace": [
+			true,
+			{
+				"call-signature": "nospace",
+				"index-signature": "nospace",
+				"parameter": "nospace",
+				"property-declaration": "nospace",
+				"variable-declaration": "nospace"
+			},
+			{
+				"call-signature": "onespace",
+				"index-signature": "onespace",
+				"parameter": "onespace",
+				"property-declaration": "onespace",
+				"variable-declaration": "onespace"
+			}
+		],
+		"interface-name": false,
+		"no-internal-module": true,
+		"no-trailing-whitespace": true,
+		"no-null-keyword": true,
+		"no-unused-expression": false,
+		"prefer-const": true,
+		"jsdoc-format": true
+	},
+	"jsRules": {},
+	"rulesDirectory": []
+}

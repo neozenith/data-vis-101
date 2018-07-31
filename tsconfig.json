@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target":"es2017",
+    
+    "esModuleInterop":true,
+    // "strict": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "types":["node"],
+    "rootDirs":[
+      "src"    
+    ]
+  },
+  // "files":["src/server.ts"],
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ],
+  "exclude":[
+    "**/node_modules/**"
+  ]
+
+}

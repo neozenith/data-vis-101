@@ -1,24 +1,21 @@
 'use strict';
-const MongoClient = require('mongodb').MongoClient;
+import { MongoClient } from 'mongodb';
 
-function ping(url) {
+export default (url: string ): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     MongoClient.connect(
       url,
       (err, client) => {
         if (err) {
           console.debug(err);
+          console.info(`${url} Waiting...`);
           return resolve(false);
         }
 
-        console.debug('Connected successfully to server');
+        console.info(`${url} CONNECTED`);
         client.close();
         resolve(true);
       }
     );
   });
-}
-
-module.exports = {
-  ping
 };

@@ -1,0 +1,21 @@
+{
+  "name": "docker-ready",
+  "version": "1.0.0",
+  "description": "Docker Utility Class for managing test fixtures",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "docker",
+    "testing",
+    "mocha"
+  ],
+  "author": "Josh peak <neozenith.dev@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "0.5.2",
+    "mongodb": "3.1.1",
+    "redis": "2.8.0"
+  }
+}

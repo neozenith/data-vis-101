@@ -1,7 +1,7 @@
 'use strict';
-const throng = require('throng'),
-  os = require('os'),
-  app = require('./app');
+import os from 'os';
+import throng from 'throng';
+import { startup } from './app';
 
 const CONCURRENCY = process.env.WEB_CONCURRENCY || os.cpus().length;
 
@@ -20,7 +20,7 @@ throng(throngOptions);
 /**
  * This is invoked only once and is the main entry point for Throng
  * @return {void}
- * */
+ **/
 function startMaster() {
   logger.info(`Master started, spanning ${throngOptions.workers} workers...`);
 }
@@ -34,7 +34,7 @@ function startMaster() {
 function startWorker(id) {
   logger.info(`Starting worker ${id}`);
 
-  app.startupSystem(`Worker ${id}`).then(
+  startup().then(
     () => {
       logger.info(`Worker ${id} successfully started`);
     },

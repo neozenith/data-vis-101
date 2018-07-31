@@ -1,21 +1,23 @@
 'use strict';
-const http = require('http');
-const url = require('url');
-const { exec } = require('child_process');
+import { exec } from 'child_process';
+import http from 'http';
+import url from 'url';
 
-const handlers = {
+const handlers: any = {
   // Default handler
-  'http:': function(uri) {
+  http: (uri: string) => {
     // eslint-disable-next-line no-unused-vars
     return new Promise((resolve, reject) => {
       http
-        .get(uri, res => {
+        .get(uri, (res) => {
           const { statusCode } = res;
+          // tslint:disable-next-line:no-console
           console.log(`${uri} ${statusCode}`);
           res.resume();
-          resolve(res.statusCode == 200);
+          resolve(res.statusCode === 200);
         })
-        .on('error', error => {
+        .on('error', (error) => {
+          // tslint:disable-next-line:no-console
           console.error(error.message);
           resolve(false);
         });
@@ -24,58 +26,23 @@ const handlers = {
 };
 
 /**
- * DockerMocha class is used to eventfully trigger a docker test fixture to
+ * DockerReady class is used to eventfully trigger a docker test fixture to
  * startup, await ports, assist creating serviceURLs, await service URLs
  * to accept valid commands.
  */
-class DockerMocha {
-  /**
-   * Default constructor does nothing.
-   * @return {void}
-   */
-  constructor() {}
-
-  /**
-   * This is to be used in conjunction with `readyYet`. DockerMocha only knows
-   * how to handle `http:` by default. All other protocols will have to be `learn`t.
-   *
-   * ```
-   * const {DockerMocha} = require('./docker_fixture.js');
-   * const fixture = new DockerMocha();
-   * fixture.learn('mongo:', url => {
-   *    return new Promise((resolve, reject)=>{
-   *      resolve(true);
-   *    });
-   * });
-   * ```
-   *
-   * @param {string} protocol - URL protocol to associate this handler with.
-   *  Must include the ':' as in 'http:' is returned from:
-   *  ```
-   *  const url = require('url');
-   *  url.parse('http://localhost:8080').protocol
-   *  ```
-   * @param {function} readyHandler - Function that accepts a single string argument `url`
-   *  and returns a Promise that will return a boolean `true` is the service URL successfully
-   *  connected and accepted a basic ping command.
-   *
-   * @return {void}
-   */
-  learn(protocol, readyHandler) {
-    handlers[protocol] = readyHandler;
-  }
+export default class DockerReady {
   /**
    * Exceute a child process as a promise. eg
    * ```
-   * await DockerMocha.runProcess('docker-compose up --build -d');
-   * await DockerMocha.runProcess('docker-compose down');
+   * await DockerReady.runProcess('docker-compose up --build -d');
+   * await DockerReady.runProcess('docker-compose down');
    * ```
    *
    * @param {string} command - Command process to execute asynchronously
    *
    * @return {Promise} Promise will return stdout/stderr streams
    */
-  runProcess(command) {
+  public static runProcess(command: string) {
     // Return a promise to run this child process but do no start running it.
     return new Promise((resolve, reject) => {
       // child_process.exec will create a ChildProcess Object to queue up this
@@ -87,14 +54,14 @@ class DockerMocha {
       // we kicked off when the ChildProcess exits
       const child_proc = exec(command, (err, stdout, stderr) => {
         if (err) {
-          reject({ error: err, stdout: stdout, stderr: stderr });
+          reject({ error: err, stdout, stderr });
         } else {
-          resolve({ stdout: stdout, stderr: stderr });
+          resolve({ stdout, stderr });
         }
       });
 
-      child_proc.stdout.on('data', data => console.log('>> ' + data.toString()));
-      child_proc.stderr.on('data', data => console.error('>> ' + data.toString()));
+      child_proc.stdout.on('data', (data) => console.log('>> ' + data.toString()));
+      child_proc.stderr.on('data', (data) => console.error('>> ' + data.toString()));
     });
   }
 
@@ -106,7 +73,7 @@ class DockerMocha {
    * @return {Array[Objects]} Promise of Array of Objects decribing containers.
    * @see queryDocker
    */
-  getComposedContainers(project) {
+  public static getComposedContainers(project: string): Promise<{}> {
     return this.queryDocker(`/containers/json?label="com.docker.compose.project=${project}"`);
   }
 
@@ -123,15 +90,15 @@ class DockerMocha {
    * @return {Promise} - Promise resolves to JSON parsed Object from Docker Engine query.
    *
    */
-  queryDocker(path, options, api) {
-    const _api = api || `v1.37`;
+  public static queryDocker(path: string, options?: any, api?: string): Promise<{}> {
+    const _api = api || `v1`;
     // https://docs.docker.com/engine/api/v1.37/
     // Initialise sane defaults for querying docker and
     // merge with optional user provided options
     const _options = Object.assign(
       {
-        socketPath: '/var/run/docker.sock',
-        path: `http://${_api}${path}`
+        path: `${path}`,
+        socketPath: '/var/run/docker.sock'
       },
       options
     );
@@ -140,31 +107,78 @@ class DockerMocha {
     return new Promise((resolve, reject) => {
       // Define output string accumulator
       let output = '';
-      //Define callback that prepares eventHandlers
-      const callback = res => {
+      // Define callback that prepares eventHandlers
+      const callback = (res: http.IncomingMessage) => {
         res.setEncoding('utf8');
-        res.on('data', data => (output += data));
-        res.on('error', data => reject(data));
-        res.on('close', () => resolve(JSON.parse(output)));
+        res.on('data', (data) => (output += data));
+        res.on('error', (data) => reject(data));
+        res.on('end', () => resolve(JSON.parse(output)));
       };
 
-      //Trigger compose request and call .end() to trigger.
+      // Trigger compose request and call .end() to trigger.
       const clientRequest = http.request(_options, callback);
       clientRequest.end();
     });
   }
 
   /**
-   * Take an array of ServiceUrls to map and run against `readyYet` and wrap
-   * in Promise.all()
-   *
-   * @param {Array} serviceUrls - Array of Strings to run through `readyYet`
-   *
-   * @return {Promise} Wraps all `readyYet` calls in a Promise.all()
+   * Search through docker container listing for a container with a target name and
+   * designated private port to find the exposed public port.
+   * @param {any} containers - Listing of container information
+   * @param {string} containerName - Name of container to search for
+   * @param privatePort - Target service port internally exposed as a public port
+   * @returns {number} The public port exposed for the `privatePort` of container named `containerName`
    */
-  allReadyYet(serviceUrls) {
+  public static findPublicPort(containers: any, containerName: string, privatePort: number): number {
+    return containers
+      .find((container) => {
+        return container.Names.includes(containerName);
+      })
+      .Ports.find( (port) => port.PrivatePort === privatePort )
+      .PublicPort;
+  }
+
+  /**
+   * Default constructor does nothing.
+   * @return {void}
+   */
+  // tslint:disable-next-line:no-empty
+  constructor() {}
+
+   /**
+    * This is to be used in conjunction with `readyYet`. DockerReady only knows
+    * how to handle `http` by default. All other protocols will have to be `learn`t.
+    *
+    * ```
+    * const {DockerReady} = require('./docker-ready');
+    * const fixture = new DockerReady();
+    * fixture.learn('mongo', url => {
+    *    return new Promise((resolve, reject)=>{
+    *      resolve(true);
+    *    });
+    * });
+    * ```
+    *
+    * @param {string} protocol - URL protocol to associate this handler with.
+    * @param {function} readyHandler - Function that accepts a single string argument `url`
+    *  and returns a Promise that will return a boolean `true` is the service URL successfully
+    *  connected and accepted a basic ping command.
+    *
+    * @return {void}
+    */
+  public learn(protocol: string, readyHandler: (url: string) => Promise<boolean>) {
+    handlers[protocol] = readyHandler;
+  }
+
+  /**
+   * Wraps `DockerReady.readyYet` in a Promise.all() for all `serviceUrls`
+   *
+   * @param {string[]} serviceUrls - Array of url strings to test
+   * @return {Promise<Promise[]>}
+   */
+  public allReadyYet(serviceUrls: string[]) {
     return Promise.all(
-      serviceUrls.map(async serviceUrl => {
+      serviceUrls.map(async (serviceUrl) => {
         return this.readyYet(serviceUrl);
       })
     );
@@ -180,23 +194,24 @@ class DockerMocha {
    *
    * @return {Promise} - Empty response, just resolves on success or rejects on timeout.
    */
-  readyYet(uri, timeout, interval) {
-    const _timeout = timeout || 5000; //ms
-    const _interval = interval || 1000; //ms
-    const _url = url.parse(uri);
+  public readyYet(uri: string, timeout?: number, interval?: number) {
+    const _timeout = timeout || 10000; // ms
+    const _interval = interval || 1000; // ms
+    const _protocol: any = url.parse(uri).protocol.replace(/:/, '');
 
     return new Promise((resolve, reject) => {
+      let finished: boolean = false;
       // Create interval check call back
-      let interv = setInterval(async () => {
+      const interv: NodeJS.Timer = setInterval(async () => {
         // Check list of understood protocols
-        if (_url.protocol in handlers) {
-          console.log(`checking ${uri}`);
-          console.log(_url.protocol);
+        if (_protocol in handlers) {
+          console.debug(`checking ${uri}`);
 
           let ready = false;
 
           try {
-            ready = await handlers[_url.protocol](uri);
+            // Service URL handler should return false on connection failures
+            ready = await handlers[_protocol](uri);
           } catch (error) {
             reject(error);
             return;
@@ -205,26 +220,22 @@ class DockerMocha {
           // Clear retry logic as soon as it is ready
           if (ready) {
             clearInterval(interv);
-            interv = null;
+            finished = true;
             resolve();
           }
         } else {
-          reject(new Error(`Unknown Service URL protocol: '${_url.protocol}'`));
+          reject(new Error(`Unknown Service URL protocol: '${_protocol}'`));
         }
       }, _interval);
 
       // Create timeout to cap interval executions
       setTimeout(() => {
-        if (interv) {
+        if (!finished) {
           clearInterval(interv);
-          interv = null;
+          finished = true;
           reject(new Error(`${uri} timed out after ${_timeout}ms`));
         }
       }, _timeout);
     });
   }
 }
-
-module.exports = {
-  DockerMocha
-};

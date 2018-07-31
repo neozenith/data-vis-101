@@ -2,20 +2,71 @@
   "name": "datavis101",
   "version": "2.2.0",
   "description": "Data Visualisation",
-  "main": "server.js",
+  "main": "dist/src/server.js",
   "scripts": {
-    "start:prod": "nodemon server.js",
-    "build:dev": "webpack --watch --mode development",
-    "build:prod": "webpack --mode production",
-    "deps-size": "webpack -p --json | webpack-bundle-size-analyzer",
-    "test": "mocha --recursive",
-    "test:lint:all": "./node_modules/.bin/eslint --ignore-path .gitignore .",
-    "test:lint": "npm run test:lint:all -- --quiet",
-    "test:lint:fix": "npm run test:lint:all -- --fix",
-    "start": "npm run docker:up",
-    "stop": "npm run docker:down",
-    "docker:up": "docker-compose up --build",
-    "docker:down": "docker-compose down"
+    "prestart": "npm run build && npm run copy-config",
+    "start": "node dist/src/server.js",
+    "start:dev": "npm run prestart && nodemon dist/src/server.js",
+    "copy-config": "ts-node copy-config.ts",
+    "clean": "rm -rf dist/",
+    "build": "npm run clean && tsc && npm run copy-config",
+    "build:watch": "npm run clean && mkdir -p dist/src && npm run copy-config && tsc --watch",
+    "lint": "tslint -c ./tslint.json src/**/*.ts --force",
+    "prettier": "prettier src/*.ts src/**/*.ts src/*.ts test/**/*.ts --write",
+    "test": "mocha 'src/**/*.spec.ts'",
+    "test:watch": "npm test -- --watch --reporter min",
+    "coverage": "nyc npm test -- --reporter min",
+    "coverage:watch": "nodemon --watch ./src/ -e ts --exec 'npm run coverage'",
+    "ci": ". ./exports.sh && mocha 'test/*.ts'",
+    "ci:coverage": ". ./exports.sh && nyc mocha 'test/*.ts' 'src/**/*.spec.ts'",
+    "ci:coverage:watch": "nodemon --watch ./src/ -e ts --exec 'npm run ci:coverage'",
+    "stop": "docker-compose down"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 75,
+    "statements": 75,
+    "functions": 75,
+    "branches": 75,
+    "watermarks": {
+      "lines": [
+        75,
+        80
+      ],
+      "functions": [
+        75,
+        80
+      ],
+      "branches": [
+        75,
+        80
+      ],
+      "statements": [
+        75,
+        80
+      ]
+    },
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.spec.ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "lcov",
+      "json",
+      "html",
+      "text-summary"
+    ],
+    "sourceMap": true,
+    "instrument": true,
+    "all": true
   },
   "repository": {
     "type": "git",
@@ -37,7 +88,7 @@
     "extends": "@neozenith"
   },
   "devDependencies": {
-    "@neozenith/eslint-config": "^3.0.0",
+    "@types/node": "^10.5.4",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
@@ -52,6 +103,8 @@
     "prettier": "^1.13.4",
     "style-loader": "^0.19.1",
     "supertest": "^3.1.0",
+    "ts-node": "^7.0.0",
+    "typescript": "^3.0.1",
     "webpack": "^4.11.1",
     "webpack-bundle-size-analyzer": "^2.7.0",
     "webpack-cli": "^2.1.5",
@@ -59,12 +112,12 @@
   },
   "dependencies": {
     "compression": "^1.7.2",
-    "cors": "^2.8.4",
     "d3": "^5.4.0",
     "express": "^4.16.3",
     "mongodb": "^3.0.10",
     "mongoose": "^5.1.5",
     "morgan": "^1.9.0",
+    "source-map-support": "^0.5.6",
     "throng": "^4.0.0",
     "validator": "^10.3.0"
   }

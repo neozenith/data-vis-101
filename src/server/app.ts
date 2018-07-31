@@ -7,7 +7,6 @@ const express = require('express'),
   path = require('path'),
   compression = require('compression'),
   bodyParser = require('body-parser'),
-  cors = require('cors'),
   morgan = require('morgan'),
   mongoose = require('mongoose');
 
@@ -28,18 +27,17 @@ let httpServer;
  *
  * @return {Promise} returns promise of `Express` App.
  */
-function startupSystem() {
+function startup() {
   logger.log(`${environment} v${pkg.version}`);
 
   const app = express();
   app.use(morgan('dev'));
   app.use(compression());
   app.use(bodyParser.json());
-  app.use(cors(corsOptions));
 
   /*============================== SECURITY ============================== */
 
-  //TODO: Incorporate passport.js
+  // TODO: Incorporate passport.js
 
   /*============================== STATIC ASSETS ============================== */
 
@@ -81,8 +79,8 @@ function startupSystem() {
   process.on('exit', code => {
     logger.info(`Application about to exit with code: ${code}`);
   });
-  process.on('SIGINT', () => shutdownSystem('SIGINT'));
-  process.on('SIGTERM', () => shutdownSystem('SIGTERM'));
+  process.on('SIGINT', () => shutdown('SIGINT'));
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
 
   // Serving
   // server start
@@ -100,9 +98,9 @@ function startupSystem() {
  *
  * @param {string} code - String code representing shutdown reason eg SIGINT, SIGTERM
  *
- * @return {void}
+ * @return {Promise[]}
  */
-function shutdownSystem(code) {
+function shutdown(code) {
   if (code) {
     logger.info(`${code} event received, application closing`);
   } else {
@@ -125,4 +123,4 @@ function shutdownSystem(code) {
   });
 }
 // Export for Integration testing
-module.exports = { startupSystem, shutdownSystem };
+export { startup, shutdown };
