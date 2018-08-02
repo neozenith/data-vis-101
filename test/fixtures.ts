@@ -24,7 +24,8 @@ before(async function() {
 after(async function() {
   this.timeout(TIMEOUT);
 
-  if (process.env.TEST_MODE && process.env.TEST_MODE !== 'WATCH') {
+  console.log('fixtures tear down');
+  if ( !process.env.TEST_MODE || (process.env.TEST_MODE && process.env.TEST_MODE !== 'WATCH') ) {
     await DockerReady.runProcess('docker-compose down');
   }
 });

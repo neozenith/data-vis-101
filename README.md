@@ -5,6 +5,7 @@ This repo sets out to achieve a few things:
  - Curate the tidbits of advice about good data visualization over the years
  - Help compare and contrast JS frameworks for the situation of "I just need a graph"
  - Collected my own snippets of boilerplate for data visualisation.
+ - Develop a fullstack Typescript server
 
 One of the other reasons I am putting this together is that I am working through 
 [Interactive Data Visualization for the Web: An Introduction to Designing with D3](https://www.amazon.com.au/Interactive-Data-Visualization-Web-Introduction-ebook/dp/B074JKZ9Z3)
@@ -120,39 +121,6 @@ reading text, parsing the grammar of the language and then trying to internally
 visualise that relationship.
 
 And we know what they say a picture is worth...
-
-## From scratch
-
-```
-npm init
-
-npm install --save-dev eslint eslint-config-prettier eslint-plugin-prettier prettier
-
-# Tools to run a basic nodejs webserver
-# Tools to build front end static assets
-npm install --save-dev webpack webpack-cli nodemon
-
-# Tools for a basic web server
-npm install http-server
-
-# d3 v5.x
-npm install d3
-
-./node_modules/.bin/webpack-cli init
-
-# Create remote app and add heroku remotes
-heroku create
-
-# Test locally
-heroku local web
-
-# provision a database
-heroku addons:create heroku-postgresql:hobby-dev
-
-# Push to Heroku remote to deploy
-git push heroku master
-
-```
 
 
 ## Resources

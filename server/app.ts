@@ -4,16 +4,12 @@
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
-import mongoose from 'mongoose';
 import morgan from 'morgan';
 import path from 'path';
 
-import mdb from './utils/database';
 import logger from './utils/logger';
 
 // Config
-// tslint:disable-next-line no-var-requires
-const pkg = require('./package.json');
 
 // Server Setup
 const port = process.env.PORT || 3000;
@@ -27,7 +23,6 @@ let httpServer;
  * @return {Promise} returns promise of `Express` App.
  */
 function startup() {
-  logger.log(`${environment} v${pkg.version}`);
 
   const app = express();
   app.use(morgan('dev'));
@@ -43,7 +38,7 @@ function startup() {
   if (environment === 'development') {
     const webpack = require('webpack');
     const webpackMiddleware = require('webpack-dev-middleware');
-    const webpackConfig = require('./webpack.config.js');
+    const webpackConfig = require('../webpack.config.js');
     webpackConfig.mode = environment;
 
     app.use(
@@ -107,7 +102,6 @@ function shutdown(code) {
   }
 
   return Promise.all([
-    mongoose.disconnect(),
     new Promise(resolve => {
       if (httpServer) {
         logger.info('Express.js server closing');

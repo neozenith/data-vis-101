@@ -8,7 +8,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/client/index.ts'),
+  entry: path.resolve(__dirname, 'client/index.ts'),
 
   output: {
     filename: 'main.js',

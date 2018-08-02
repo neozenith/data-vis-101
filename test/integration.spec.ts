@@ -1,6 +1,6 @@
 import { after, before, describe, it } from 'mocha';
 import supertest from 'supertest';
-import { shutdown, startup } from '../src/server/app';
+import { shutdown, startup } from '../server/app';
 
 let api: supertest.SuperTest<supertest.Test>;
 
@@ -12,12 +12,19 @@ describe('Authenticating API requests', function() {
   });
 
   after(async function() {
-    await shutdown('Test Finished');
+    await shutdown('SIGINT');
   });
 
   it('GET / 200 OK', function(done) {
     api
       .get('/')
+      .expect(200)
+      .end(done);
+  });
+
+  it('GET /vega.html 200 OK', function(done) {
+    api
+      .get('/vega.html')
       .expect(200)
       .end(done);
   });
