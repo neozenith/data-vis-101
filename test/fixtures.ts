@@ -13,23 +13,12 @@ const PROJECT = path.basename(process.cwd());
 before(async function() {
   this.timeout(TIMEOUT);
 
-  // STEP #1: Check if containers are already running for this project
-  let containers: any = await DockerReady.getComposedContainers(PROJECT);
-
-  // STEP #2: Docker Compose to setup resources
-  if (containers.length <= 0) {
-   await DockerReady.runProcess('docker-compose up --detach mongo');
-  }
-  // STEP #3: Create Service URLs from container information
-  containers = await DockerReady.getComposedContainers(PROJECT);
-
-  const serviceUrls = [
-    // `http://localhost:${DockerReady.findPublicPort(containers, '/app', 8888)}`,
-    `mongodb://localhost:${DockerReady.findPublicPort(containers, '/mongo', 27017)}`
+  const serviceTargets = [
+    {protocol: 'mongodb', name: '/mongo', privatePort: 27017}
   ];
 
-  // STEP #4: readyYet checks for successful ping of serviceUrls;
-  await fixture.allReadyYet(serviceUrls);
+  await fixture.setupDocker(PROJECT, serviceTargets);
+
 });
 
 after(async function() {

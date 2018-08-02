@@ -1,25 +1,24 @@
 'use strict';
 
-const logger = require('./utils/logger');
-
 // Module Imports
-const express = require('express'),
-  path = require('path'),
-  compression = require('compression'),
-  bodyParser = require('body-parser'),
-  morgan = require('morgan'),
-  mongoose = require('mongoose');
+import bodyParser from 'body-parser';
+import compression from 'compression';
+import express from 'express';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
+import path from 'path';
 
-const mdb = require('./utils/database');
+import mdb from './utils/database';
+import logger from './utils/logger';
 
 // Config
+// tslint:disable-next-line no-var-requires
 const pkg = require('./package.json');
 
 // Server Setup
 const port = process.env.PORT || 3000;
 const environment = process.env.NODE_ENV || 'development';
 const staticPath = process.env.STATIC_PATH || path.join(__dirname, 'dist');
-const corsOptions = {};
 let httpServer;
 
 /**
@@ -59,7 +58,7 @@ function startup() {
   }
 
   /*============================== ROUTES============================== */
-  app.use('/api/v1/', require('./routes/index.js'));
+  app.use('/api/v1/', require('./routes'));
 
   /*============================== ERROR HANDLING ============================== */
   /* eslint-disable no-unused-vars */

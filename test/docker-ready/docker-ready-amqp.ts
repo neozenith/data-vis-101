@@ -7,14 +7,14 @@ export default (url: string): Promise<boolean> => {
 
     amqp
       .connect(url)
-      .then((conn) =>
+      .then(conn =>
         conn.createChannel().then(() => {
           console.info(`${url} CONNECTED`);
           conn.close();
           resolve(true);
         })
       )
-      .catch((err) => {
+      .catch(err => {
         console.info(`${url} Waiting...`);
         // console.error(err);
         resolve(false);

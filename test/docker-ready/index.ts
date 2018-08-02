@@ -1,6 +1,6 @@
 'use strict';
 
-export {default as DockerReady} from './docker-ready';
+export { default as DockerReady } from './docker-ready';
 
 /**
  * Below are the Strategies for testing if a service is ready for accepting commands
@@ -10,6 +10,6 @@ export {default as DockerReady} from './docker-ready';
  * See DockerReady.learn for usage
  */
 
-export {default as isAmqpReady} from './docker-ready-amqp';
-export {default as isMongoReady} from './docker-ready-mongo';
-export {default as isRedisReady} from './docker-ready-redis';
+export { default as isAmqpReady } from './docker-ready-amqp';
+export { default as isMongoReady } from './docker-ready-mongo';
+export { default as isRedisReady } from './docker-ready-redis';

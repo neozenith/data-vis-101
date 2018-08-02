@@ -1,7 +1,8 @@
 'use strict';
 
 // Poor mans logging tool
-module.exports = {
+
+export default {
   info: m => {
     console.info(m);
   },

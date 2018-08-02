@@ -9,14 +9,14 @@ const handlers: any = {
     // eslint-disable-next-line no-unused-vars
     return new Promise((resolve, reject) => {
       http
-        .get(uri, (res) => {
+        .get(uri, res => {
           const { statusCode } = res;
           // tslint:disable-next-line:no-console
           console.log(`${uri} ${statusCode}`);
           res.resume();
           resolve(res.statusCode === 200);
         })
-        .on('error', (error) => {
+        .on('error', error => {
           // tslint:disable-next-line:no-console
           console.error(error.message);
           resolve(false);
@@ -60,8 +60,8 @@ export default class DockerReady {
         }
       });
 
-      child_proc.stdout.on('data', (data) => console.log('>> ' + data.toString()));
-      child_proc.stderr.on('data', (data) => console.error('>> ' + data.toString()));
+      child_proc.stdout.on('data', data => console.log('>> ' + data.toString()));
+      child_proc.stderr.on('data', data => console.error('>> ' + data.toString()));
     });
   }
 
@@ -110,8 +110,8 @@ export default class DockerReady {
       // Define callback that prepares eventHandlers
       const callback = (res: http.IncomingMessage) => {
         res.setEncoding('utf8');
-        res.on('data', (data) => (output += data));
-        res.on('error', (data) => reject(data));
+        res.on('data', data => (output += data));
+        res.on('error', data => reject(data));
         res.on('end', () => resolve(JSON.parse(output)));
       };
 
@@ -131,11 +131,10 @@ export default class DockerReady {
    */
   public static findPublicPort(containers: any, containerName: string, privatePort: number): number {
     return containers
-      .find((container) => {
+      .find(container => {
         return container.Names.includes(containerName);
       })
-      .Ports.find( (port) => port.PrivatePort === privatePort )
-      .PublicPort;
+      .Ports.find(port => port.PrivatePort === privatePort).PublicPort;
   }
 
   /**
@@ -145,29 +144,50 @@ export default class DockerReady {
   // tslint:disable-next-line:no-empty
   constructor() {}
 
-   /**
-    * This is to be used in conjunction with `readyYet`. DockerReady only knows
-    * how to handle `http` by default. All other protocols will have to be `learn`t.
-    *
-    * ```
-    * const {DockerReady} = require('./docker-ready');
-    * const fixture = new DockerReady();
-    * fixture.learn('mongo', url => {
-    *    return new Promise((resolve, reject)=>{
-    *      resolve(true);
-    *    });
-    * });
-    * ```
-    *
-    * @param {string} protocol - URL protocol to associate this handler with.
-    * @param {function} readyHandler - Function that accepts a single string argument `url`
-    *  and returns a Promise that will return a boolean `true` is the service URL successfully
-    *  connected and accepted a basic ping command.
-    *
-    * @return {void}
-    */
+  /**
+   * This is to be used in conjunction with `readyYet`. DockerReady only knows
+   * how to handle `http` by default. All other protocols will have to be `learn`t.
+   *
+   * ```
+   * const {DockerReady} = require('./docker-ready');
+   * const fixture = new DockerReady();
+   * fixture.learn('mongo', url => {
+   *    return new Promise((resolve, reject)=>{
+   *      resolve(true);
+   *    });
+   * });
+   * ```
+   *
+   * @param {string} protocol - URL protocol to associate this handler with.
+   * @param {function} readyHandler - Function that accepts a single string argument `url`
+   *  and returns a Promise that will return a boolean `true` is the service URL successfully
+   *  connected and accepted a basic ping command.
+   *
+   * @return {void}
+   */
   public learn(protocol: string, readyHandler: (url: string) => Promise<boolean>) {
     handlers[protocol] = readyHandler;
+  }
+
+  public async setupDocker(project: string, serviceTargets: any ) {
+
+    // STEP #1: Check if containers are already running for this project
+    let containers: any = await DockerReady.getComposedContainers(project);
+
+    // STEP #2: Docker Compose to setup resources
+    if (containers.length <= 0) {
+      await DockerReady.runProcess('docker-compose up --detach');
+    }
+    // STEP #3: Create Service URLs from container information
+    containers = await DockerReady.getComposedContainers(project);
+
+    const serviceUrls = serviceTargets.map(target => {
+      const publicPort = DockerReady.findPublicPort(containers, target.name, target.privatePort);
+      return `${target.protocol}://localhost:${publicPort}`;
+    });
+
+    // STEP #4: readyYet checks for successful ping of serviceUrls;
+    await this.allReadyYet(serviceUrls);
   }
 
   /**
@@ -178,7 +198,7 @@ export default class DockerReady {
    */
   public allReadyYet(serviceUrls: string[]) {
     return Promise.all(
-      serviceUrls.map(async (serviceUrl) => {
+      serviceUrls.map(async serviceUrl => {
         return this.readyYet(serviceUrl);
       })
     );
@@ -197,7 +217,8 @@ export default class DockerReady {
   public readyYet(uri: string, timeout?: number, interval?: number) {
     const _timeout = timeout || 10000; // ms
     const _interval = interval || 1000; // ms
-    const _protocol: any = url.parse(uri).protocol.replace(/:/, '');
+    const _url: any = url.parse(uri);
+    const _protocol: any = (_url.protocol) ? _url.protocol.replace(/:/, '') : '';
 
     return new Promise((resolve, reject) => {
       let finished: boolean = false;

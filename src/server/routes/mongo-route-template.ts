@@ -1,6 +1,6 @@
 'use strict';
 
-const logger = require('../utils/logger.js');
+import logger from '../utils/logger';
 
 /**
  * initMongoRoute() Create basic endpoints for Mongo Collection
@@ -10,7 +10,7 @@ const logger = require('../utils/logger.js');
  *
  * @return {void}
  */
-function initMongoRoute(router, model) {
+export function initMongoRoute(router, model) {
   // Get everything in the collection
   // TODO: Should the name here be the pluralform?
   // TODO: should this be paged?
@@ -52,7 +52,3 @@ function initMongoRoute(router, model) {
       });
   });
 }
-
-module.exports = {
-  initMongoRoute
-};

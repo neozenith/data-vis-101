@@ -1,17 +1,17 @@
 version: "3.6"
 services:
-  app:
-    container_name: app
-    restart: always
-    build: .
-    ports:
-      - "3000"
-    links:
-      - mongo
-    environment:
-      - MONGODB_URI=mongodb://mongo:27017/
-      - WEB_CONCURRENCY=1
-      - NODE_ENV=production
+  # app:
+    # container_name: app
+    # restart: always
+    # build: .
+    # ports:
+      # - "3000"
+    # links:
+      # - mongo
+    # environment:
+      # - MONGODB_URI=mongodb://mongo:27017/
+      # - WEB_CONCURRENCY=1
+      # - NODE_ENV=production
   mongo:
     container_name: mongo
     image: mongo

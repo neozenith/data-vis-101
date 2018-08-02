@@ -11,7 +11,7 @@ export default (url: string): Promise<boolean> => {
         resolve(true);
       });
     });
-    client.on('error', (err) => {
+    client.on('error', err => {
       console.info(`${url} Waiting...`);
       client.quit();
       resolve(false);

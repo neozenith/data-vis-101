@@ -157,6 +157,11 @@ git push heroku master
 
 ## Resources
 
+### Typescript
+
+ - https://github.com/bitjson/typescript-starter
+ - https://github.com/axilis/typescript-fullstack
+
 ### Books
 
 | Book Cover | Title | Published |

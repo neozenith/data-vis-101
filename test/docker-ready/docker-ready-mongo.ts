@@ -1,7 +1,7 @@
 'use strict';
 import { MongoClient } from 'mongodb';
 
-export default (url: string ): Promise<boolean> => {
+export default (url: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     MongoClient.connect(
       url,

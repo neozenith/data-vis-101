@@ -8,11 +8,11 @@
     "start": "node dist/src/server.js",
     "start:dev": "npm run prestart && nodemon dist/src/server.js",
     "copy-config": "ts-node copy-config.ts",
-    "clean": "rm -rf dist/",
-    "build": "npm run clean && tsc && npm run copy-config",
-    "build:watch": "npm run clean && mkdir -p dist/src && npm run copy-config && tsc --watch",
+    "clean": "rm -rfv dist lib build",
+    "build": "npm run clean && tsc",
+    "build:watch": "npm run clean && mkdir -p dist/src && tsc --watch",
     "lint": "tslint -c ./tslint.json src/**/*.ts --force",
-    "prettier": "prettier src/*.ts src/**/*.ts src/*.ts test/**/*.ts --write",
+    "autoformat": "prettier --parser typescript src/*.ts src/**/*.ts test/*.ts test/**/*.ts --write",
     "test": "mocha 'src/**/*.spec.ts'",
     "test:watch": "npm test -- --watch --reporter min",
     "coverage": "nyc npm test -- --reporter min",
@@ -23,29 +23,6 @@
     "stop": "docker-compose down"
   },
   "nyc": {
-    "check-coverage": true,
-    "lines": 75,
-    "statements": 75,
-    "functions": 75,
-    "branches": 75,
-    "watermarks": {
-      "lines": [
-        75,
-        80
-      ],
-      "functions": [
-        75,
-        80
-      ],
-      "branches": [
-        75,
-        80
-      ],
-      "statements": [
-        75,
-        80
-      ]
-    },
     "extension": [
       ".ts"
     ],
@@ -84,11 +61,15 @@
     "url": "https://github.com/neozenith/data-vis-101/issues"
   },
   "homepage": "https://github.com/neozenith/data-vis-101#readme",
-  "eslintConfig": {
-    "extends": "@neozenith"
-  },
   "devDependencies": {
+    "@types/amqplib": "^0.5.8",
+    "@types/jest": "^23.3.1",
+    "@types/mocha": "^5.2.5",
+    "@types/mongodb": "^3.1.2",
     "@types/node": "^10.5.4",
+    "@types/redis": "^2.8.6",
+    "@types/supertest": "^2.0.5",
+    "@types/throng": "^4.0.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
@@ -98,11 +79,14 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "http-server": "^0.11.1",
+    "jest": "^23.4.2",
     "mocha": "^5.2.0",
     "nodemon": "^1.17.5",
     "prettier": "^1.13.4",
     "style-loader": "^0.19.1",
     "supertest": "^3.1.0",
+    "ts-jest": "^23.0.1",
+    "ts-loader": "^4.4.2",
     "ts-node": "^7.0.0",
     "typescript": "^3.0.1",
     "webpack": "^4.11.1",
@@ -111,12 +95,15 @@
     "webpack-dev-middleware": "^3.1.3"
   },
   "dependencies": {
+    "@types/d3": "^5.0.0",
+    "amqplib": "^0.5.2",
     "compression": "^1.7.2",
-    "d3": "^5.4.0",
+    "d3": "^5.5.0",
     "express": "^4.16.3",
     "mongodb": "^3.0.10",
     "mongoose": "^5.1.5",
     "morgan": "^1.9.0",
+    "redis": "^2.8.0",
     "source-map-support": "^0.5.6",
     "throng": "^4.0.0",
     "validator": "^10.3.0"

@@ -1,23 +1,33 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
     "target":"es2017",
     
-    "esModuleInterop":true,
-    // "strict": true,
-    "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
     "types":["node"],
-    "rootDirs":[
-      "src"    
-    ]
+    "typeRoots":["node_modules/@types", "src/types"],
+    
+    "declaration": true,
+    "esModuleInterop":true,
+    "sourceMap": true,
+    
+    "strict": false,
+
+    "noImplicitAny": false,
+    "strictNullChecks": true, 
+    "strictFunctionTypes": true, 
+    "strictPropertyInitialization": true, 
+    "noImplicitThis": true,
+    "alwaysStrict": true 
+
   },
-  // "files":["src/server.ts"],
+  
   "include": [
-    "src/**/*",
-    "test/**/*"
+    "src/**/*.ts",
+    "test/**/*.ts"
   ],
   "exclude":[
     "**/node_modules/**"

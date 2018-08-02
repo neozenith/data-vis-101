@@ -21,5 +21,4 @@ describe('Authenticating API requests', function() {
       .expect(200)
       .end(done);
   });
-
 });
