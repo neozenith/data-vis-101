@@ -12,7 +12,7 @@ import { initMongoRoute } from './mongo-route-template';
 
 // Iterate through initialising them
 // models.forEach(m => {
-  // initMongoRoute(router, m);
+// initMongoRoute(router, m);
 // });
 
 module.exports = router;

@@ -23,7 +23,6 @@ let httpServer;
  * @return {Promise} returns promise of `Express` App.
  */
 function startup() {
-
   const app = express();
   app.use(morgan('dev'));
   app.use(compression());
@@ -35,24 +34,25 @@ function startup() {
 
   /*============================== STATIC ASSETS ============================== */
 
-  if (environment === 'development') {
-    const webpack = require('webpack');
-    const webpackMiddleware = require('webpack-dev-middleware');
-    const webpackConfig = require('../webpack.config.js');
-    webpackConfig.mode = environment;
-
-    app.use(
-      webpackMiddleware(webpack(webpackConfig), {
-        publicPath: '/',
-        stats: { colors: true }
-      })
-    );
-  } else {
-    logger.log(staticPath);
-    app.use(express.static(staticPath));
-  }
+  // if (environment === 'development') {
+  // const webpack = require('webpack');
+  // const webpackMiddleware = require('webpack-dev-middleware');
+  // const webpackConfig = require('../webpack.config.js');
+  // webpackConfig.mode = environment;
+  //
+  // app.use(
+  // webpackMiddleware(webpack(webpackConfig), {
+  // publicPath: '/',
+  // stats: { colors: true }
+  // })
+  // );
+  // } else {
+  logger.log(staticPath);
+  app.use(express.static(staticPath));
+  // }
 
   /*============================== ROUTES============================== */
+  app.use('/ping', (req, res) => res.status(200).send('pong'));
   app.use('/api/v1/', require('./routes'));
 
   /*============================== ERROR HANDLING ============================== */
@@ -94,7 +94,7 @@ function startup() {
  *
  * @return {Promise[]}
  */
-function shutdown(code) {
+function shutdown(code?: string) {
   if (code) {
     logger.info(`${code} event received, application closing`);
   } else {

@@ -13,19 +13,16 @@ const PROJECT = path.basename(process.cwd());
 before(async function() {
   this.timeout(TIMEOUT);
 
-  const serviceTargets = [
-    {protocol: 'mongodb', name: '/mongo', privatePort: 27017}
-  ];
+  const serviceTargets = [{ protocol: 'mongodb', name: '/mongo', privatePort: 27017 }];
 
   await fixture.setupDocker(PROJECT, serviceTargets);
-
 });
 
 after(async function() {
   this.timeout(TIMEOUT);
 
-  console.log('fixtures tear down');
-  if ( !process.env.TEST_MODE || (process.env.TEST_MODE && process.env.TEST_MODE !== 'WATCH') ) {
+  if (!process.env.TEST_MODE || (process.env.TEST_MODE && process.env.TEST_MODE !== 'WATCH')) {
+    console.log('fixtures tear down');
     await DockerReady.runProcess('docker-compose down');
   }
 });

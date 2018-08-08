@@ -169,8 +169,7 @@ export default class DockerReady {
     handlers[protocol] = readyHandler;
   }
 
-  public async setupDocker(project: string, serviceTargets: any ) {
-
+  public async setupDocker(project: string, serviceTargets: any) {
     // STEP #1: Check if containers are already running for this project
     let containers: any = await DockerReady.getComposedContainers(project);
 
@@ -218,7 +217,7 @@ export default class DockerReady {
     const _timeout = timeout || 10000; // ms
     const _interval = interval || 1000; // ms
     const _url: any = url.parse(uri);
-    const _protocol: any = (_url.protocol) ? _url.protocol.replace(/:/, '') : '';
+    const _protocol: any = _url.protocol ? _url.protocol.replace(/:/, '') : '';
 
     return new Promise((resolve, reject) => {
       let finished: boolean = false;

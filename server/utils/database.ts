@@ -11,14 +11,14 @@ const options = {
 // TODO: https://www.npmjs.com/package/node-docker-api
 // Use a docker API to drive starting up for tests.
 // setTimeout(function() {
-  // logger.info('MongoDB startup...');
-  // mongoose
-    // .connect(
-      // mongo_uri,
-      // options
-    // )
-    // .then(() => logger.info('Mongo Successfully connected!!!'))
-    // .catch(e => logger.error('Mongo Connection Error'));
+// logger.info('MongoDB startup...');
+// mongoose
+// .connect(
+// mongo_uri,
+// options
+// )
+// .then(() => logger.info('Mongo Successfully connected!!!'))
+// .catch(e => logger.error('Mongo Connection Error'));
 // }, 3000);
 //
 const db = mongoose.connection;
@@ -34,4 +34,4 @@ const db = mongoose.connection;
 //
 // logger.info('MongoDB startup finished.');
 //
-export default db ;
+export default db;

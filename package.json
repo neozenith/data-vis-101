@@ -4,34 +4,32 @@
   "description": "Data Visualisation",
   "main": "dist/src/server.js",
   "scripts": {
-    "prestart": "npm run build && npm run copy-config",
-    "start": "node dist/src/server.js",
-    "start:dev": "npm run prestart && nodemon dist/src/server.js",
-    "copy-config": "ts-node copy-config.ts",
-    "clean": "rm -rfv dist lib build",
+    "prestart": "npm run build",
+    "start": "node dist/server/server.js",
+    "clean": "rm -rfv dist",
     "build": "npm run clean && tsc",
-    "build:watch": "npm run clean && mkdir -p dist/src && tsc --watch",
-    "lint": "tslint -c ./tslint.json src/**/*.ts --force",
-    "autoformat": "prettier --parser typescript src/*.ts src/**/*.ts test/*.ts test/**/*.ts --write",
-    "test": "mocha 'src/**/*.spec.ts'",
+    "build:watch": "npm run clean && mkdir -p dist/ && tsc --watch",
+    "lint": "tslint -c ./tslint.json server/**/*.ts --force",
+    "autoformat": "prettier --parser typescript server/*.ts server/**/*.ts test/*.ts test/**/*.ts --write",
+    "test": "mocha 'server/**/*.spec.ts'",
     "test:watch": "npm test -- --watch --reporter min",
     "coverage": "nyc npm test -- --reporter min",
-    "coverage:watch": "nodemon --watch ./src/ -e ts --exec 'npm run coverage'",
+    "coverage:watch": "nodemon --watch ./server/ -e ts --exec 'npm run coverage'",
     "ci": ". ./exports.sh && mocha 'test/*.ts'",
     "ci:coverage": ". ./exports.sh && nyc mocha 'test/*.ts' 'server/**/*.spec.ts'",
-    "ci:coverage:watch": "nodemon --watch ./src/ -e ts --exec 'npm run ci:coverage'",
-    "stop": "docker-compose down",
-    "watch": "run-s clean build && run-p build:watch coverage:watch"
+    "ci:coverage:watch": "nodemon --watch ./server/ -e ts --exec 'npm run ci:coverage'",
+    "stop": "docker-compose down"
   },
   "nyc": {
     "extension": [
       ".ts"
     ],
     "include": [
-      "src/**/*.ts"
+      "server/**/*.ts"
     ],
     "exclude": [
-      "src/**/*.spec.ts"
+      "server/**/*.spec.ts",
+      "test/**/*.ts"
     ],
     "require": [
       "ts-node/register"
@@ -86,6 +84,7 @@
     "npm-run-all": "^4.1.3",
     "nyc": "^12.0.2",
     "prettier": "^1.13.4",
+    "rimraf": "^2.6.2",
     "style-loader": "^0.19.1",
     "supertest": "^3.1.0",
     "ts-jest": "^23.0.1",

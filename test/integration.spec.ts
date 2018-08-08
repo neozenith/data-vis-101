@@ -12,20 +12,14 @@ describe('Authenticating API requests', function() {
   });
 
   after(async function() {
-    await shutdown('SIGINT');
+    await shutdown('Testing complete');
   });
 
-  it('GET / 200 OK', function(done) {
+  it('GET /ping 200 OK', function(done) {
     api
-      .get('/')
+      .get('/ping')
       .expect(200)
-      .end(done);
-  });
-
-  it('GET /vega.html 200 OK', function(done) {
-    api
-      .get('/vega.html')
-      .expect(200)
+      .expect(/pong/)
       .end(done);
   });
 });
