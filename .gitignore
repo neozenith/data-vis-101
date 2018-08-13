@@ -3,3 +3,4 @@
 /dist/*
 /data/
 /.nyc_output/**/*
+/coverage/

@@ -29,6 +29,7 @@
     ],
     "exclude": [
       "server/**/*.spec.ts",
+      "server/**/*.d.ts",
       "test/**/*.ts"
     ],
     "require": [
