@@ -74,7 +74,7 @@ export default class DockerReady {
    * @see queryDocker
    */
   public static getComposedContainers(project: string): Promise<{}> {
-    return this.queryDocker(`/containers/json?label="com.docker.compose.project=${project}"`);
+    return this.queryDocker(`/containers/json?filters={%22label%22:[%22com.docker.compose.project=${project}%22]}`);
   }
 
   /**
@@ -130,11 +130,12 @@ export default class DockerReady {
    * @returns {number} The public port exposed for the `privatePort` of container named `containerName`
    */
   public static findPublicPort(containers: any, containerName: string, privatePort: number): number {
-    return containers
+    const filteredContainer = containers
       .find(container => {
         return container.Names.includes(containerName);
-      })
-      .Ports.find(port => port.PrivatePort === privatePort).PublicPort;
+      });
+    console.log(filteredContainer);
+    return filteredContainer.Ports.find(port => port.PrivatePort === privatePort).PublicPort;
   }
 
   /**
@@ -171,8 +172,10 @@ export default class DockerReady {
 
   public async setupDocker(project: string, serviceTargets: any) {
     // STEP #1: Check if containers are already running for this project
+    console.log(project);
     let containers: any = await DockerReady.getComposedContainers(project);
 
+    console.log(containers);
     // STEP #2: Docker Compose to setup resources
     if (containers.length <= 0) {
       await DockerReady.runProcess('docker-compose up --detach');
