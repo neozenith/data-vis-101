@@ -1,7 +1,8 @@
 'use strict';
 
 import mongoose from 'mongoose';
-import logger from './logger';
+import { getLogger } from './logger';
+const logger = getLogger('database');
 const mongo_uri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const options = {
   reconnectTries: Number.MAX_VALUE,

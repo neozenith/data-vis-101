@@ -1,0 +1,10 @@
+{
+  "appenders":{
+   "route":{
+    "type": "console"
+   } 
+  },
+  "categories":{
+    "default": {"appenders":["route"], "level":"INFO" }
+  }
+}

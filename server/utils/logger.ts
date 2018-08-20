@@ -1,21 +1,6 @@
 'use strict';
+import { configure, getLogger } from 'log4js';
+const configFile = `log4js.json`;
+configure(configFile);
 
-// Poor mans logging tool
-
-export default {
-  info: m => {
-    console.info(m);
-  },
-  error: m => {
-    console.error(m);
-  },
-  warn: m => {
-    console.warn(m);
-  },
-  debug: m => {
-    console.debug(m);
-  },
-  log: m => {
-    console.log(m);
-  }
-};
+export { getLogger };

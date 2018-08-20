@@ -1,7 +1,6 @@
 'use strict';
 
-import logger from '../utils/logger';
-
+import { getLogger } from '../utils/logger';
 /**
  * initMongoRoute() Create basic endpoints for Mongo Collection
  *
@@ -11,6 +10,7 @@ import logger from '../utils/logger';
  * @return {void}
  */
 export function initMongoRoute(router, model) {
+  const logger = getLogger(`app.route.template`);
   // Get everything in the collection
   // TODO: Should the name here be the pluralform?
   // TODO: should this be paged?

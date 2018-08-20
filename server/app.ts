@@ -4,12 +4,11 @@
 import bodyParser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
-import morgan from 'morgan';
+import log4js from 'log4js';
 import path from 'path';
 
-import logger from './utils/logger';
-
 // Config
+log4js.configure('log4js.json');
 
 // Server Setup
 const port = process.env.PORT || 3000;
@@ -23,8 +22,10 @@ let httpServer;
  * @return {Promise} returns promise of `Express` App.
  */
 function startup() {
+  const logger = log4js.getLogger('app.startup');
   const app = express();
-  app.use(morgan('dev'));
+  // Use this instead of morgan
+  app.use(log4js.connectLogger(log4js.getLogger('http'), { level: 'auto' }));
   app.use(compression());
   app.use(bodyParser.json());
 
@@ -95,6 +96,8 @@ function startup() {
  * @return {Promise[]}
  */
 function shutdown(code?: string) {
+  const logger = log4js.getLogger('app.shutdown');
+
   if (code) {
     logger.info(`${code} event received, application closing`);
   } else {

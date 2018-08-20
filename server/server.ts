@@ -6,7 +6,8 @@ import { startup } from './app';
 const CONCURRENCY = process.env.WEB_CONCURRENCY || os.cpus().length;
 
 // TODO: Switch to log4js
-import logger from './utils/logger';
+import { getLogger } from './utils/logger';
+const logger = getLogger('server');
 
 function startMaster() {
   logger.info(`Master started, spanning ${throngOptions.workers} workers...`);
